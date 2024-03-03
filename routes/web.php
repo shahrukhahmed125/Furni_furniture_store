@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,12 @@ Route::get('/cart',[HomeController::class,'cart'])->name('cart');
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
 Route::get('/thankyou',[HomeController::class,'thankyou'])->name('thankyou');
 
+//----------- AUTH ROUTES ----------//
 
-Route::get('/login',[HomeController::class,'login'])->name('login');
-Route::get('/register',[HomeController::class,'register'])->name('register');
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/loginPost',[AuthController::class,'loginPost'])->name('loginPost');
+Route::get('/register',[AuthController::class,'register'])->name('register');
+Route::post('/registerPost',[AuthController::class,'registerPost'])->name('registerPost');
+Route::get('logout',[AuthController::class,'logout'])->name('logout');
+
+//----------- END AUTH ROUTES ----------//
