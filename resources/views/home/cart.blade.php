@@ -51,7 +51,7 @@
                   <tbody>
                     <tr>
                       <td class="product-thumbnail">
-                        <img src="images/product-1.png" alt="Image" class="img-fluid">
+                        <img src="home/images/product-1.png" alt="Image" class="img-fluid">
                       </td>
                       <td class="product-name">
                         <h2 class="h5 text-black">Product 1</h2>
@@ -75,7 +75,7 @@
     
                     <tr>
                       <td class="product-thumbnail">
-                        <img src="images/product-2.png" alt="Image" class="img-fluid">
+                        <img src="home/images/product-2.png" alt="Image" class="img-fluid">
                       </td>
                       <td class="product-name">
                         <h2 class="h5 text-black">Product 2</h2>

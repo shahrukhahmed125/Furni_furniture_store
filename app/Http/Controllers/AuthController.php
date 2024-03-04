@@ -6,9 +6,11 @@ use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
+
     public function login()
     {
         return view('home.auth.login');
@@ -23,8 +25,18 @@ class AuthController extends Controller
 
         if(Auth::attempt($request->only('email', 'password')))
         {
-            return redirect('/');
+            $user_type = Auth::user()->user_type;
+            if($user_type == 1)
+            {
+                return redirect('/AdminDashboard');
+            }
+            else
+            {
+
+                return redirect('/');
+            }
         }
+
         return redirect('/login')->withErrors('Login details not found!');
 
     }
@@ -53,7 +65,7 @@ class AuthController extends Controller
         return redirect('/');
     }
     public function logout(){
-        Session::flush();
+        session()->flush();
         Auth::logout();
 
         return redirect('/');

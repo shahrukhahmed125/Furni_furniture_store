@@ -14,10 +14,10 @@
   <link rel="shortcut icon" href="favicon.png">
   @yield('meta-description-keywords')
 		<!-- Bootstrap CSS -->
-		<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="{{asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="{{asset('css/tiny-slider.css')}}" rel="stylesheet">
-		<link href="{{asset('css/style.css')}}" rel="stylesheet">
+		<link href="{{asset('home/css/tiny-slider.css')}}" rel="stylesheet">
+		<link href="{{asset('home/css/style.css')}}" rel="stylesheet">
 		<title>Furni - @yield('title')</title>
         @yield('css')
 	</head>
@@ -47,8 +47,8 @@
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="{{route('login')}}"><img src="images/user.svg"></a></li>
-						<li><a class="nav-link" href="{{route('cart')}}"><img src="images/cart.svg"></a></li>
+						<li><a class="nav-link" href="{{route('login')}}"><img src="{{asset('home/images/user.svg')}}"></a></li>
+						<li><a class="nav-link" href="{{route('cart')}}"><img src="{{asset('home/images/cart.svg')}}"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -63,13 +63,13 @@
 			<div class="container relative">
 
 				<div class="sofa-img">
-					<img src="images/sofa.png" alt="Image" class="img-fluid">
+					<img src="{{asset('home/images/sofa.png')}}" alt="Image" class="img-fluid">
 				</div>
 
 				<div class="row">
 					<div class="col-lg-8">
 						<div class="subscription-form">
-							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="{{asset('home/images/envelope-outline.svg')}}" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
 
 							<form action="#" class="row g-3">
 								<div class="col-auto">
@@ -164,9 +164,9 @@
 		<!-- End Footer Section -->	
 
 
-		<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-		<script src="{{asset('js/tiny-slider.js')}}"></script>
-		<script src="{{asset('js/custom.js')}}"></script>
+		<script src="{{asset('home/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('home/js/tiny-slider.js')}}"></script>
+		<script src="{{asset('home/js/custom.js')}}"></script>
         @yield('js')
 	</body>
 
