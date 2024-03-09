@@ -5,6 +5,9 @@
 * Template URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+
+<!----- HOME MASTERPAGE ----->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,8 +50,22 @@
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="{{route('login')}}"><img src="{{asset('home/images/user.svg')}}"></a></li>
 						<li><a class="nav-link" href="{{route('cart')}}"><img src="{{asset('home/images/cart.svg')}}"></a></li>
+						@if (Auth::check())
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							  {{Auth::user()->name}}
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							  <li><a class="dropdown-item" href="#">Profile</a></li>
+							  <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+							</ul>
+						</div>
+						@else
+						<li><a class="nav-link" href="{{route('login')}}"><img src="{{asset('home/images/user.svg')}}"></a></li>
+						
+						@endif
+
 					</ul>
 				</div>
 			</div>

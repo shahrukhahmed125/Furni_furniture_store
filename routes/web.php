@@ -40,7 +40,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/redirect',[AuthController::class,'loginPost'])->name('loginPost');
     //----------- ADMIN ROUTES ----------//
 
-        Route::get('/AdminDashboard',[AdminController::class,'dashboard'])->name('dashboard')->middleware('auth','verified');
+        Route::middleware('auth','verified','admin')->group(function()
+        {
+
+            Route::get('/AdminDashboard',[AdminController::class,'dashboard'])->name('dashboard');
+            Route::get('/users',[AdminController::class,'users'])->name('users');
+        });
 
     //----------- END ADMIN ROUTES ----------//
     Route::get('/register',[AuthController::class,'register'])->name('register');

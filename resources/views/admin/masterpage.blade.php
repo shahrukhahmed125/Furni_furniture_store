@@ -1,3 +1,6 @@
+
+<!----- ADMIN DASHBOARD MASTERPAGE ----->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -97,7 +100,7 @@
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Users</span>
+              <span class="menu-title">Products</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
@@ -133,11 +136,11 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="{{route('users')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
-              <span class="menu-title">Icons</span>
+              <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item menu-items">
