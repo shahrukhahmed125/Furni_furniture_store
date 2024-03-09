@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/login',[AuthController::class,'login'])->name('login');
     Route::post('/redirect',[AuthController::class,'loginPost'])->name('loginPost');
+
     //----------- ADMIN ROUTES ----------//
 
         Route::middleware('auth','verified','admin')->group(function()
@@ -48,6 +49,7 @@ use Illuminate\Support\Facades\Route;
         });
 
     //----------- END ADMIN ROUTES ----------//
+    
     Route::get('/register',[AuthController::class,'register'])->name('register');
     Route::post('/registerPost',[AuthController::class,'registerPost'])->name('registerPost');
     Route::get('logout',[AuthController::class,'logout'])->name('logout');

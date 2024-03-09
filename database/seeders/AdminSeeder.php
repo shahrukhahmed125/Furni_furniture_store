@@ -30,5 +30,21 @@ class AdminSeeder extends Seeder
                 'updated_at' => now(),
             ],
         );
+
+        DB::table('users')->insert(
+            [
+                'name' => 'Shahrukh Ahmed',
+                'email' => 'shahrukhahmed125@gmail.com',
+                'user_type' => 0,
+                'phone' => null,
+                'address' => null,
+                'email_verified_at' => null,
+                'password' => Hash::make('123456789'),
+                'profile_img' => null,
+                'remember_token' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
     }
 }
