@@ -46,6 +46,9 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/AdminDashboard',[AdminController::class,'dashboard'])->name('dashboard');
             Route::get('/users',[AdminController::class,'users'])->name('users');
+            Route::get('/roles',[AdminController::class,'roles'])->name('roles');
+            Route::post('/rolesPost',[AdminController::class,'add_roles'])->name('add_roles');
+            Route::get('/role_delete/{id}',[AdminController::class, 'role_delete'])->name('role_delete');
         });
 
     //----------- END ADMIN ROUTES ----------//

@@ -128,11 +128,11 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="{{route('roles')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">Roles</span>
             </a>
           </li>
           <li class="nav-item menu-items">

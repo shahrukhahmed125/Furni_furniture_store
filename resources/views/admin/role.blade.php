@@ -1,39 +1,51 @@
 @extends('admin.masterpage')
-@section('title','Users')
+@section('title', 'Roles & Permission')
 @section('css')
 
 
 @stop
 
 @section('content')
-
-
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title"> Users Tables </h3>
+        <h3 class="page-title"> Roles & Permissions Tables </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Users tables</li>
+            <li class="breadcrumb-item active" aria-current="page">Roles & Permissions tables</li>
           </ol>
         </nav>
       </div>
       <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Add Role</h4>
+                <p class="card-description"> Roles examples like <code>admin</code> and <code>customer</code>.</p>
+
+                <form action="{{url('/rolesPost')}}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" name="name"><br>
+                      <button type="submit" class="btn btn-success btn-lg">Create</button>
+                    </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body p-5">
+                <h4 class="card-title">All Roles</h4>
               </p>
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th> User</th>
-                      <th> Full Name </th>
-                      <th> Email </th>
-                      <th> Role </th>
-                      <th> Status </th>
-                      <th> Creation </th>
+                      <th> Id </th>
+                      <th> Name </th>
                       <th> Actions </th>
                     </tr>
                   </thead>
@@ -41,22 +53,10 @@
                     @foreach ($data as $data)
                         
                     <tr>
-                      <td class="py-1">
-                        <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" alt="image" />
-                      </td>
+                      <td>{{$data->id}}</td>
                       <td> {{$data->name}} </td>
-                      <td> {{$data->email}} </td>
-                      <td> {{($data->role)->name}} </td>
                       <td>
-                        @if ($data->email_verified_at != null)
-                        <label class="badge badge-success">Verified</label>
-                        @else
-                        <label class="badge badge-danger">Pending</label>
-                        @endif
-                      </td>
-                      <td> {{$data->created_at->format('F j, Y')}} </td>
-                      <td> 
-                        <a href="#" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
+                        <a href="{{url('/role_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
                         <a href="#" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
                       </td>
                     </tr>
@@ -80,6 +80,7 @@
     </footer>
     <!-- partial -->
 </div>
+
 
 @stop
 

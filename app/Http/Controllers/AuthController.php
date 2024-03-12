@@ -30,7 +30,7 @@ class AuthController extends Controller
             {
                 return redirect('/AdminDashboard');
             }
-            else
+            elseif($user_type = 3)
             {
 
                 return redirect('/');

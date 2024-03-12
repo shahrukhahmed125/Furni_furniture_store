@@ -35,7 +35,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Shahrukh Ahmed',
                 'email' => 'shahrukhahmed125@gmail.com',
-                'user_type' => 0,
+                'user_type' => 3,
                 'phone' => null,
                 'address' => null,
                 'email_verified_at' => null,
