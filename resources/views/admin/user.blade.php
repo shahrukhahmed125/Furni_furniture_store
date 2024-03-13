@@ -56,7 +56,7 @@
                       </td>
                       <td> {{$data->created_at->format('F j, Y')}} </td>
                       <td> 
-                        <a href="#" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
+                        <a href="{{url('/user_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
                         <a href="#" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
                       </td>
                     </tr>

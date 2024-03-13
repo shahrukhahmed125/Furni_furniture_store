@@ -136,28 +136,25 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('users')}}">
+            <a class="nav-link" href="#">
               <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
+                <i class="mdi mdi-security"></i>
               </span>
-              <span class="menu-title">Users</span>
+              <span class="menu-title">Nothing</span>
             </a>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
+                <i class="mdi mdi-contacts"></i>
               </span>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Users</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('users')}}">All Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('add_users')}}"> Add Users </a></li>
               </ul>
             </div>
           </li>
