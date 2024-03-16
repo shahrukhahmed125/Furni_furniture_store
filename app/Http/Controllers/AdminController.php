@@ -39,7 +39,12 @@ class AdminController extends Controller
         $data = new User;
         $name = $request->fname.' '.$request->lname;
         $data->name = $name;
+        $data->phone = $request->phone;
+        $data->user_type = $request->user_type;
+        $data->email_verified_at = $request->date;
+        $data->address = $request->address;
         $data->fill($request->all());
+
         $data->save();
 
         return redirect()->back()->with('msg','User added successfully!');

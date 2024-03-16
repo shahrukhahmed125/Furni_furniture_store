@@ -3,8 +3,9 @@
 @section('css')
 
     <style>
-        .input-group-append {
-            cursor: pointer;
+        #datepicker {
+            padding: 10px;
+            font-size: 16px;
         }
     </style>
     <style>
@@ -37,7 +38,7 @@
         }
 
         /* .remove_btn{
-                            /* display: none; */
+                                    /* display: none; */
         position: fixed;
         left: 95%;
         bottom: 65%;
@@ -124,9 +125,9 @@
                                 <div class="row mt-3">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Role & Permission</label>
+                                            <label>Role & Permission*</label>
                                             <div class="">
-                                                <select class="form-control form-control-lg">
+                                                <select class="form-control form-control-lg" name="user_type">
                                                     <option>Select Role</option>
                                                     @foreach ($data as $data)
                                                         <option value="{{ $data->id }}">{{ $data->name }}</option>
@@ -138,11 +139,9 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="date">Date</label>
-                                            <div class="input-group date" id="datepicker">
-                                                <input type="text" class="form-control form-control-lg" id="date" />
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                            <div class="input-group date">
+                                                <input type="text" class="form-control form-control-lg"
+                                                    id="datepicker" name="date"/>
                                             </div>
                                         </div>
                                     </div>
@@ -228,8 +227,8 @@
 
         <script>
             /*  ==========================================
-                                                    SHOW UPLOADED IMAGE
-                                                * ========================================== */
+                                                                    SHOW UPLOADED IMAGE
+                                                                * ========================================== */
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -310,8 +309,40 @@
         <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
         <!-- End custom js for this page -->
         <script>
-            $(function() {
-                $('#datepicker').datepicker();
+            // JavaScript to activate the datepicker
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize the datepicker input
+                var datepickerInput = document.getElementById('datepicker');
+
+                // When the datepicker input is focused, show the datepicker
+                datepickerInput.addEventListener('focus', function() {
+                    // Create a datepicker element
+                    var datepicker = document.createElement('input');
+                    datepicker.type = 'date';
+                    datepicker.style.position = 'absolute';
+                    datepicker.style.zIndex = '1000';
+
+                    // Position the datepicker below the input
+                    var rect = datepickerInput.getBoundingClientRect();
+                    datepicker.style.top = rect.bottom + 'px';
+                    datepicker.style.left = rect.left + 'px';
+
+                    // Append the datepicker to the body
+                    document.body.appendChild(datepicker);
+
+                    // When a date is selected, update the input value and remove the datepicker
+                    datepicker.addEventListener('change', function() {
+                        datepickerInput.value = datepicker.value;
+                        document.body.removeChild(datepicker);
+                    });
+
+                    // When clicking outside the datepicker, remove it
+                    document.addEventListener('click', function(event) {
+                        if (!datepicker.contains(event.target) && event.target !== datepickerInput) {
+                            document.body.removeChild(datepicker);
+                        }
+                    });
+                });
             });
         </script>
     @stop
