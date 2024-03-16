@@ -21,7 +21,8 @@ class AdminController extends Controller
 
     public function add_users()
     {
-        return view('admin.add_user');
+        $data  = Role::all();
+        return view('admin.add_user', compact('data'));
     }
 
     public function add_users_post(Request $request)

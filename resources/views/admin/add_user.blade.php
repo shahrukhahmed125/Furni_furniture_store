@@ -3,6 +3,11 @@
 @section('css')
 
     <style>
+        .input-group-append {
+            cursor: pointer;
+        }
+    </style>
+    <style>
         #upload {
             opacity: 0;
         }
@@ -32,7 +37,7 @@
         }
 
         /* .remove_btn{
-                /* display: none; */
+                            /* display: none; */
         position: fixed;
         left: 95%;
         bottom: 65%;
@@ -63,7 +68,7 @@
                     </ol>
                 </nav>
             </div>
-            <form action="{{route('add_users_post')}}" method="POST">
+            <form action="{{ route('add_users_post') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-8 grid-margin stretch-card">
@@ -72,26 +77,27 @@
                                 <h4 class="card-title">Add Users</h4>
                                 <p class="card-description"> User name must be in <code>string</code>, no
                                     <code>numbers</code>
-                                    and <code>special characters</code> are allowed.</p>
+                                    and <code>special characters</code> are allowed.
+                                </p>
 
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>First Name*</label>
-                                            <input type="text" class="form-control form-control-lg" name="fname" value="{{old('lname')}}"
-                                                placeholder="Ex: John">
+                                            <input type="text" class="form-control form-control-lg" name="fname"
+                                                value="{{ old('lname') }}" placeholder="Ex: John">
                                             @error('fname')
-                                                <code>{{'*' . $message}}</code>
+                                                <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Last Name*</label>
-                                            <input type="text" class="form-control form-control-lg" name="lname" value="{{old('lname')}}"
-                                                placeholder="Ex: Doe">
+                                            <input type="text" class="form-control form-control-lg" name="lname"
+                                                value="{{ old('lname') }}" placeholder="Ex: Doe">
                                             @error('lname')
-                                                <code>{{'*' . $message}}</code>
+                                                <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
@@ -100,48 +106,50 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Email*</label>
-                                            <input type="email" class="form-control form-control-lg" name="email" value="{{old('email')}}"
-                                                placeholder="Ex: John@gmail.com">
+                                            <input type="email" class="form-control form-control-lg" name="email"
+                                                value="{{ old('email') }}" placeholder="Ex: John@gmail.com">
                                             @error('email')
-                                                <code>{{'*' . $message}}</code>
+                                                <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input type="tel" class="form-control form-control-lg" name="phone" value="{{old('phone')}}"
-                                                placeholder="Ex: 03xxxxxxxxx">
+                                            <input type="tel" class="form-control form-control-lg" name="phone"
+                                                value="{{ old('phone') }}" placeholder="Ex: 03xxxxxxxxx">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Role</label>
-                                            <select class="js-example-basic-single" style="width:100%">
-                                              <option value="AL">Alabama</option>
-                                              <option value="WY">Wyoming</option>
-                                              <option value="AM">America</option>
-                                              <option value="CA">Canada</option>
-                                              <option value="RU">Russia</option>
-                                            </select>
-                                            @error('email')
-                                                <code>{{'*' . $message}}</code>
-                                            @enderror
+                                            <label>Role & Permission</label>
+                                            <div class="">
+                                                <select class="form-control form-control-lg">
+                                                    <option>Select Role</option>
+                                                    @foreach ($data as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="tel" class="form-control form-control-lg" name="phone" value="{{old('phone')}}"
-                                                placeholder="Ex: 03xxxxxxxxx">
+                                            <label for="date">Date</label>
+                                            <div class="input-group date" id="datepicker">
+                                                <input type="text" class="form-control form-control-lg" id="date" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label>Address</label>
-                                    <textarea class="form-control" id="exampleTextarea1" rows="6" name="address">{{old('address')}}</textarea>
+                                    <textarea class="form-control" id="exampleTextarea1" rows="6" name="address">{{ old('address') }}</textarea>
                                 </div>
                                 <div class="row mt-5">
                                     <div class="col-6">
@@ -150,7 +158,7 @@
                                             <input type="password" class="form-control form-control-lg" name="password"
                                                 placeholder="xxxxxxxxxxx">
                                             @error('password')
-                                                <code>{{'*' . $message}}</code>
+                                                <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
@@ -160,7 +168,7 @@
                                             <input type="password" class="form-control form-control-lg"
                                                 name="password_confirmation" placeholder="xxxxxxxxxxx">
                                             @error('password_confirmation')
-                                                <code>{{'*' . $message}}</code>
+                                                <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
@@ -182,8 +190,8 @@
                                 </div><br>
                                 <div class="form-group">
                                     <label>File upload</label>
-                                    <input type="file" name="img" class="file-upload-default" value="{{old('img')}}"
-                                        onchange="readURL(this);" id="upload">
+                                    <input type="file" name="img" class="file-upload-default"
+                                        value="{{ old('img') }}" onchange="readURL(this);" id="upload">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled
                                             placeholder="Upload Image">
@@ -192,7 +200,8 @@
                                                 type="button">Upload</button>
                                         </span>
                                     </div><br>
-                                    <button id="removeImage" class="btn btn-danger btn-block btn-md rounded">Reset</button>
+                                    <button id="removeImage"
+                                        class="btn btn-danger btn-block btn-md rounded">Reset</button>
                                 </div>
                             </div>
                         </div>
@@ -219,8 +228,8 @@
 
         <script>
             /*  ==========================================
-                            SHOW UPLOADED IMAGE
-                        * ========================================== */
+                                                    SHOW UPLOADED IMAGE
+                                                * ========================================== */
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -291,8 +300,8 @@
         </script>
 
         <!-- Plugin js for this page -->
-        <script src="{{asset('admin/assets/vendors/select2/select2.min.js')}}"></script>
-        <script src="{{asset('admin/assets/vendors/typeahead.js/typeahead.bundle.min.js')}}"></script>
+        <script src="{{ asset('admin/assets/vendors/select2/select2.min.js') }}"></script>
+        <script src="{{ asset('admin/assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
         <!-- End plugin js for this page -->
 
         <!-- Custom js for this page -->
@@ -300,5 +309,9 @@
         <script src="{{ asset('admin/assets/js/typeahead.js') }}"></script>
         <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
         <!-- End custom js for this page -->
-
+        <script>
+            $(function() {
+                $('#datepicker').datepicker();
+            });
+        </script>
     @stop
