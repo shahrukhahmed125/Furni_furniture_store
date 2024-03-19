@@ -44,6 +44,15 @@ class AdminController extends Controller
         $data->email_verified_at = $request->date;
         $data->address = $request->address;
         $data->fill($request->all());
+        
+        if($request->hasFile('img'))
+        {
+
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/user_img'), $imageName);
+            $data->profile_img = $imageName;
+        }
 
         $data->save();
 

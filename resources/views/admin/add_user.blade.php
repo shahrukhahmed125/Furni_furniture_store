@@ -69,7 +69,7 @@
                     </ol>
                 </nav>
             </div>
-            <form action="{{ route('add_users_post') }}" method="POST">
+            <form action="{{ route('add_users_post') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8 grid-margin stretch-card">

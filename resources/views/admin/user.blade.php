@@ -42,7 +42,11 @@
                         
                     <tr>
                       <td class="py-1">
-                        <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" alt="image" />
+                        @if ($data->profile_img == null)
+                        <img src="{{asset('admin\assets\images\faces-clipart\pic-1.png')}}" alt="image" />
+                        @else
+                        <img src="{{asset('admin/assets/user_img/')}}/{{$data->profile_img}}" alt="image" />
+                        @endif
                       </td>
                       <td> {{$data->name}} </td>
                       <td> {{$data->email}} </td>
