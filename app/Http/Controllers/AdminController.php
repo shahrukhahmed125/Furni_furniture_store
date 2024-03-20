@@ -59,6 +59,11 @@ class AdminController extends Controller
         return redirect()->back()->with('msg','User added successfully!');
     }
 
+    public function user_edit()
+    {
+        return view('admin.edit_user');
+    }
+
     public function user_delete($id)
     {
         $data = User::findOrfail($id);
