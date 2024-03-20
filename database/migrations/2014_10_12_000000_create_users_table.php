@@ -14,10 +14,11 @@ return new class extends Migration
         if (!Schema::hasTable('users')) 
         {
             Schema::create('users', function (Blueprint $table) {
-                $table->id(); // Creates an unsigned big integer column named 'id'
+                $table->id();
                 $table->string('name');
                 $table->string('email')->unique();
-                $table->foreignId('user_type')->default(3)->constrained('roles'); // Creates a foreign key column referencing 'id' column of 'roles' table
+                $table->unsignedBigInteger('user_type')->default(3); // Ensure unsigned big integer for foreign key
+                $table->foreign('user_type')->references('id')->on('roles'); // Correct formation of foreign key constraint
                 $table->string('phone')->nullable();
                 $table->string('address')->nullable();
                 $table->timestamp('email_verified_at')->nullable();

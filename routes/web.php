@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use Database\Seeders\AdminSeeder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/roles',[AdminController::class,'roles'])->name('roles');
             Route::post('/rolesPost',[AdminController::class,'add_roles'])->name('add_roles');
             Route::get('/role_delete/{id}',[AdminController::class, 'role_delete'])->name('role_delete');
+
+            Route::get('/category',[AdminController::class,'category'])->name('category');
+            Route::post('/categoryPost',[AdminController::class,'categoryPost'])->name('categoryPost');
         });
 
     //----------- END ADMIN ROUTES ----------//

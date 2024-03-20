@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -142,5 +143,22 @@ class AdminController extends Controller
         $data->delete();
 
         return redirect()->back()->with('msg','Role deleted successfully!');
+    }
+
+    public function category()
+    {
+        $data = Category::all();
+
+        return view('admin.category', compact('data'));
+    }
+
+    public function categoryPost(Request $request)
+    {
+        $data = new category;
+        $data->fill($request->all());
+
+        $data->save();
+
+        return redirect()->back()->with('msg','Category added successfully!');
     }
 }
