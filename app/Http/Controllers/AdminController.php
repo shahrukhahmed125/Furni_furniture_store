@@ -59,9 +59,50 @@ class AdminController extends Controller
         return redirect()->back()->with('msg','User added successfully!');
     }
 
-    public function user_edit()
+    public function user_edit($id)
     {
-        return view('admin.edit_user');
+        $data_role = Role::all();
+        
+        $data = User::findOrfail($id);
+        $nameParts = explode(' ',$data->name);
+        $fname = $nameParts[0];
+        $lname = $nameParts[1];
+
+        return view('admin.edit_user', compact('data','fname', 'lname', 'data_role'));
+    }
+
+    public function user_update(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'fname' => 'required',
+                'lname' => 'required',
+                'email' => 'required|unique:users,email|email',
+                'password'=>'required|min:8|confirmed',
+            ]
+        );
+
+        $data = User::findOrfail($id);
+        $name = $request->fname.' '.$request->lname;
+        $data->name = $name;
+        $data->phone = $request->phone;
+        $data->user_type = $request->user_type;
+        $data->email_verified_at = $request->date;
+        $data->address = $request->address;
+        $data->fill($request->all());
+        
+        if($request->hasFile('img'))
+        {
+
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/user_img'), $imageName);
+            $data->profile_img = $imageName;
+        }
+
+        $data->save();
+
+        return redirect('/users')->with('msg','User updated successfully!');
     }
 
     public function user_delete($id)

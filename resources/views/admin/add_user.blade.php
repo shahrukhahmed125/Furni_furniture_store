@@ -37,16 +37,6 @@
             position: relative;
         }
 
-        /* .remove_btn{
-                                    /* display: none; */
-        position: fixed;
-        left: 95%;
-        bottom: 65%;
-        z-index: 1000;
-
-        }
-
-        */
     </style>
 
     <!-- Plugin css for this page -->
@@ -86,7 +76,7 @@
                                         <div class="form-group">
                                             <label>First Name*</label>
                                             <input type="text" class="form-control form-control-lg" name="fname"
-                                                value="{{ old('lname') }}" placeholder="Ex: John">
+                                                value="{{ old('fname') }}" placeholder="Ex: John">
                                             @error('fname')
                                                 <code>{{ '*' . $message }}</code>
                                             @enderror

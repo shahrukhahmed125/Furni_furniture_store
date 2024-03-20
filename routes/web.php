@@ -49,7 +49,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('/add_users',[AdminController::class,'add_users'])->name('add_users');
             Route::post('/add_users_post',[AdminController::class,'add_users_post'])->name('add_users_post');
             Route::get('/user_delete/{id}',[AdminController::class, 'user_delete'])->name('user_delete');
-            Route::get('/user_edit',[AdminController::class, 'user_edit'])->name('user_edit');
+            Route::get('/user_edit/{id}',[AdminController::class, 'user_edit'])->name('user_edit');
+            Route::post('/user_update/{id}',[AdminController::class, 'user_update'])->name('edit_users_post');
 
             Route::get('/roles',[AdminController::class,'roles'])->name('roles');
             Route::post('/rolesPost',[AdminController::class,'add_roles'])->name('add_roles');
