@@ -161,4 +161,14 @@ class AdminController extends Controller
 
         return redirect()->back()->with('msg','Category added successfully!');
     }
+
+    public function add_product()
+    {
+        return view('admin.add_product');
+    }
+
+    public function all_product()
+    {
+        return view('admin.all_product');
+    }
 }

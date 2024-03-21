@@ -59,6 +59,9 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/category',[AdminController::class,'category'])->name('category');
             Route::post('/categoryPost',[AdminController::class,'categoryPost'])->name('categoryPost');
+
+            Route::get('/add_product',[AdminController::class,'add_product'])->name('add_product');
+            Route::get('/all_product',[AdminController::class,'all_product'])->name('all_product');
         });
 
     //----------- END ADMIN ROUTES ----------//
