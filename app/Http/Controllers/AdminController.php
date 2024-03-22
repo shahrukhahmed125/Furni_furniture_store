@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -169,6 +170,8 @@ class AdminController extends Controller
 
     public function all_product()
     {
-        return view('admin.all_product');
+        $data = Product::with('category')->get();
+
+        return view('admin.all_product', compact('data'));
     }
 }

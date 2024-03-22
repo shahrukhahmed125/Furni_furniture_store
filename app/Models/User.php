@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'user_type');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
