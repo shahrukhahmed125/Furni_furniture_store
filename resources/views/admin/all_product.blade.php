@@ -52,22 +52,16 @@
                       </td>
                       <td> {{$data->title}} </td>
                       <td class="text-wrap"> {{$data->description}} </td>
+
                       <td> {{$data->category}} </td>
+
                       <td> {{$data->quantity}} </td>
                       <td> {{'Rs.'.$data->price}} </td>
                       <td> {{'Rs.'.$data->discount_price}} </td>
-                      @if (($data->category))
-                          
-                      <td> {{($data->category)->name}} </td>
-                      @endif
-                      {{-- <td>
-                        @if ($data->email_verified_at != null)
-                        <label class="badge badge-success">Verified</label>
-                        @else
-                        <label class="badge badge-danger">Pending</label>
-                        @endif
-                      </td> --}}
-                      <td></td>
+                      <td class="text-white"> {{($data->user)->name}} 
+                        <br>
+                        <span> {{$data->user->role->name}} </span>
+                      </td>
                       <td> {{$data->created_at->format('F j, Y')}} </td>
                       <td> 
                         <a href="{{url('/user_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>

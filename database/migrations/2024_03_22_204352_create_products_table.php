@@ -15,19 +15,21 @@ return new class extends Migration
         {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->string('title');
-                $table->text('description');
-                $table->string('product_img');
+                $table->string('title')->nullable();
+                $table->text('description')->nullable();
+                $table->string('product_img')->nullable();
 
                 $table->unsignedBigInteger('category'); // Ensure unsigned big integer for foreign key
                 $table->foreign('category')->references('id')->on('categories'); // Correct formation of foreign key constraint
 
                 $table->unsignedBigInteger('user_id'); // Add user_id column
                 $table->foreign('user_id')->references('id')->on('users'); // Add foreign key constraint for user_id
+                // $table->string('username')->nullable();
+                // $table->unsignedBigInteger('user_type')->nullable();
 
-                $table->string('quantity');
-                $table->integer('price');
-                $table->integer('discount_price');
+                $table->integer('quantity')->nullable();
+                $table->integer('price')->nullable();
+                $table->integer('discount_price')->nullable();
                 $table->timestamps();
             });
         }

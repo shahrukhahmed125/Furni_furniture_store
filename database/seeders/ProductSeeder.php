@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Product::factory()->count(5)->create();
+        Product::factory()->count(5)->create();
         // DB::table('products')->insert(
         //     [
         //         'title' => 'Nordic Chair',
