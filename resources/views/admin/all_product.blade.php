@@ -40,32 +40,34 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($data as $data)
+                    @foreach ($data as $product)
                         
                     <tr>
                       <td class="py-1">
-                        @if ($data->product_img == null)
+                        @if ($product->product_img == null)
                         <img src="{{asset('admin\assets\images\faces-clipart\pic-1.png')}}" alt="image" />
                         @else
-                        <img src="{{asset('admin/assets/user_img/')}}/{{$data->product_img}}" alt="image" />
+                        <img src="{{asset('admin/assets/user_img/')}}/{{$product->product_img}}" alt="image" />
                         @endif
                       </td>
-                      <td> {{$data->title}} </td>
-                      <td class="text-wrap"> {{$data->description}} </td>
-
-                      <td> {{$data->category}} </td>
-
-                      <td> {{$data->quantity}} </td>
-                      <td> {{'Rs.'.$data->price}} </td>
-                      <td> {{'Rs.'.$data->discount_price}} </td>
-                      <td class="text-white"> {{($data->user)->name}} 
-                        <br>
-                        <span> {{$data->user->role->name}} </span>
+                      <td> {{$product->title}} </td>
+                      <td class="text-wrap"> {{$product->description}} </td>
+                      
+                      <td class="text-white">
+                        {{ ($product->category)->name ?? 'None'}}
                       </td>
-                      <td> {{$data->created_at->format('F j, Y')}} </td>
+
+                      <td> {{$product->quantity}} </td>
+                      <td> {{'Rs.'.$product->price}} </td>
+                      <td> {{'Rs.'.$product->discount_price}} </td>
+                      <td class="text-white"> {{($product->user)->name}} 
+                        <br>
+                        <span class="text-small"> {{$product->user->role->name}} </span>
+                      </td>
+                      <td> {{$product->created_at->format('F j, Y')}} </td>
                       <td> 
-                        <a href="{{url('/user_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
-                        <a href="{{url('/user_edit')}}/{{$data->id}}" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
+                        <a href="{{url('/user_delete')}}/{{$product->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
+                        <a href="{{url('/user_edit')}}/{{$product->id}}" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
                       </td>
                     </tr>
 

@@ -170,11 +170,12 @@ class AdminController extends Controller
 
     public function all_product()
     {
-        $data = Product::with(['user' => function ($query){
-            $query->with('role');
-        },'category'])->get();
+        // $data = Product::with(['user' => function ($query){
+        //     $query->with('role');
+        // },'category'])->get();
+        $data = Product::with(['user.role', 'category'])->get();
 
-        // dd($data);
+        // dd($data->category);
 
         return view('admin.all_product', compact('data'));
     }
