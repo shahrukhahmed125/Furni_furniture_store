@@ -36,7 +36,19 @@
             z-index: 2;
             position: relative;
         }
-
+    </style>
+    <style>
+        .top-right-conner {
+            position: fixed;
+            top: 8%;
+            right: 0;
+            z-index: 999;
+            /* Ensure it's above other content */
+            margin-top: 20px;
+            /* Adjust if necessary */
+            margin-right: 20px;
+            /* Adjust if necessary */
+        }
     </style>
 
     <!-- Plugin css for this page -->
@@ -50,6 +62,23 @@
 
     <div class="main-panel">
         <div class="content-wrapper">
+            @if (session()->has('msg'))
+                <div class="container" style="z-index: 11;">
+                    <div class="top-right-conner">
+
+                        <div class="toast show bg-success" id="toast"
+                            style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
+                            <div class="toast-header bg-light">
+                                Message
+                                <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{ session()->get('msg') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="page-header">
                 <h3 class="page-title">Users Complete Details</h3>
                 <nav aria-label="breadcrumb">
@@ -130,8 +159,8 @@
                                         <div class="form-group">
                                             <label for="date">Date</label>
                                             <div class="input-group date">
-                                                <input type="text" class="form-control form-control-lg"
-                                                    id="datepicker" name="date"/>
+                                                <input type="text" class="form-control form-control-lg" id="datepicker"
+                                                    name="date" />
                                             </div>
                                         </div>
                                     </div>
@@ -217,8 +246,8 @@
 
         <script>
             /*  ==========================================
-                                                                    SHOW UPLOADED IMAGE
-                                                                * ========================================== */
+                                                                            SHOW UPLOADED IMAGE
+                                                                        * ========================================== */
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -335,4 +364,11 @@
                 });
             });
         </script>
+                <script>
+                    const myTimeout = setTimeout(closeAlert, 3000);
+        
+                    function closeAlert() {
+                        document.getElementById("toast").style.display = 'none';
+                    }
+                </script>
     @stop

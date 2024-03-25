@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -165,7 +166,43 @@ class AdminController extends Controller
 
     public function add_product()
     {
-        return view('admin.add_product');
+        $data = Category::all();
+        return view('admin.add_product', compact('data'));
+    }
+
+    public function add_product_post(Request $request)
+    {
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'quantity' => 'required|integer',
+                'price' => 'required|integer',
+            ]
+        );
+
+        $data = new Product;
+        $data->fill($request->all());
+        $data->category = $request->category;
+
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+        }
+
+        if($request->hasFile('img'))
+        {
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/product_img'), $imageName);
+            $data->product_img = $imageName;
+        }
+
+        $data->save();
+
+        return redirect()->back()->with('msg', 'Product added successfully!');
+
     }
 
     public function all_product()
