@@ -19,8 +19,8 @@ return new class extends Migration
                 $table->text('description')->nullable();
                 $table->string('product_img')->nullable();
 
-                $table->unsignedBigInteger('category'); // Ensure unsigned big integer for foreign key
-                $table->foreign('category')->references('id')->on('categories'); // Correct formation of foreign key constraint
+                $table->unsignedBigInteger('category_id'); // Ensure unsigned big integer for foreign key
+                $table->foreign('category_id')->references('id')->on('categories'); // Correct formation of foreign key constraint
 
                 $table->unsignedBigInteger('user_id'); // Add user_id column
                 $table->foreign('user_id')->references('id')->on('users'); // Add foreign key constraint for user_id

@@ -183,7 +183,7 @@ class AdminController extends Controller
 
         $data = new Product;
         $data->fill($request->all());
-        $data->category = $request->category;
+        $data->category_id = $request->category;
 
         $user = Auth::id();
         if($user)

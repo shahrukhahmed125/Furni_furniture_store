@@ -2,17 +2,7 @@
 @section('title', 'All Products')
 @section('css')
 
-    <style>
-        .btn3 {
-            font-family: Arial, sans-serif;
-            padding: 10px 15px;
-            border: none;
-            background: dodgerblue;
-            color: white;
-            border-radius: 4px;
-            font-size: 15px;
-        }
-    </style>
+
 
 @stop
 
@@ -81,9 +71,9 @@
                                                 </td>
                                                 <td> {{ $product->title }} </td>
                                                 <td class="text-wrap"> {{ $product->description }} </td>
-
+                                                
                                                 <td class="text-white">
-                                                    {{ $cat ?? 'None' }}
+                                                    {{ $product->category->name ?? 'None' }}
                                                 </td>
 
                                                 <td> {{ $product->quantity }} </td>
@@ -106,8 +96,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <button class="btn3">Button 3</button>
-
                             </div>
                         </div>
                     </div>
@@ -132,33 +120,6 @@
 
 @section('js')
 
-    <script>
-        $('.btn3').on('click', function() {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                animation: false
-            }).then((result) => {
-                if (result.value) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
 
-                    Toast.fire({
-                        type: 'success',
-                        title: 'Signed in successfully'
-                    })
-                }
-            })
-        })
-    </script>
 
 @stop
