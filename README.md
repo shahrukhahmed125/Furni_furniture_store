@@ -3,6 +3,8 @@ Furni is an online furniture store created using PHP Laravel framework.
 
 Work Done:
 
---Template is fully converted to blade syntax 
+--Template is fully converted to blade syntax. 
 
---Authentication is almost completed
+--Authentication is almost completed.
+
+--Allthe other work is coming soon.
