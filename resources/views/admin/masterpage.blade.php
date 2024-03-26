@@ -1,6 +1,6 @@
 
 <!----- ADMIN DASHBOARD MASTERPAGE ----->
-
+@php $user = dashboard_user();  @endphp
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,12 +39,19 @@
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="{{asset('admin/assets/images/faces/face15.jpg')}}" alt="">
+                  @if ($user->profile_img == null)
+
+                  <img class="img-xs rounded-circle" src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" alt=""/>
+
+                  @else
+
+                  <img class="img-xs rounded-circle" src="{{asset('admin/assets/user_img')}}/{{$user->profile_img}}" alt="">
+                  @endif
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Shahrukh Ahmed</h5>
-                  <span>Admin</span>
+                  <h5 class="mb-0 font-weight-normal">{{$user->name}}</h5>
+                  <span>{{($user->role)->name}}</span>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -60,7 +67,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
+                <a href="{{route('change_password')}}" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-onepassword  text-info"></i>
@@ -96,27 +103,36 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
               <span class="menu-title">Products</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="product">
               <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{route('category')}}">Product Category</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('add_product')}}">Add Products</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('all_product')}}">All Products</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('category')}}">
+            <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Category</span>
+              <span class="menu-title">Blogs</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="blog">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="">Blog Category</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">Add Blogs</a></li>
+                <li class="nav-item"> <a class="nav-link" href="">All Blogs</a></li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">
@@ -333,24 +349,30 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                             <div class="navbar-profile">
-                                <img class="img-xs rounded-circle" src="{{asset('admin/assets/images/faces/face15.jpg')}}"
-                                    alt="">
-                                <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                              @if ($user->profile_img == null)
+
+                              <img class="img-xs rounded-circle" src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" alt=""/>
+
+                              @else
+
+                              <img class="img-xs rounded-circle" src="{{asset('admin/assets/user_img')}}/{{$user->profile_img}}" alt="">
+                              @endif
+                                <p class="mb-0 d-none d-sm-block navbar-profile-name">{{$user->name}}</p>
                                 <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                             aria-labelledby="profileDropdown">
-                            <h6 class="p-3 mb-0">Profile</h6>
+                            <h6 class="p-3 mb-0">Options</h6>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-settings text-success"></i>
+                                        <i class="mdi mdi-account text-success"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Settings</p>
+                                    <p class="preview-subject mb-1">Profile</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>

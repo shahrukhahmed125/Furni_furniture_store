@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -15,6 +16,39 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function change_password()
+    {
+        return view('admin.change_password');
+    }
+
+    public function change_password_post(Request $request)
+    {
+        $request->validate(
+            [
+                'old_password' => 'required|min:8',
+                'new_password' => 'required|min:8',
+            ]
+        );
+
+        $user = Auth::user()->id;
+
+        $data = User::findOrfail($user);
+        if(Hash::check($request->old_password, $data->password))
+        {
+            $data->password = $request->new_password;
+            $data->save();
+
+            return redirect()->back()->with('msg', 'Password updated successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Invalid password.');            
+        }
+
+        return view();
+    }
+
     public function users()
     {
         $data = User::with('role')->get();

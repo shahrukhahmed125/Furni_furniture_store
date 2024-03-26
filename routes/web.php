@@ -46,6 +46,9 @@ use Illuminate\Support\Facades\Route;
         {
 
             Route::get('/AdminDashboard',[AdminController::class,'dashboard'])->name('dashboard');
+            Route::get('/change_password',[AdminController::class, 'change_password'])->name('change_password');
+            Route::post('/change_password_post',[AdminController::class, 'change_password_post'])->name('change_password_post');
+
             Route::get('/users',[AdminController::class,'users'])->name('users');
             Route::get('/add_users',[AdminController::class,'add_users'])->name('add_users');
             Route::post('/add_users_post',[AdminController::class,'add_users_post'])->name('add_users_post');
