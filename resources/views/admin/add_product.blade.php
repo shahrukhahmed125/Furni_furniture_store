@@ -158,6 +158,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-lg mt-3">Create Product</button>
+                                <a href="{{route('all_product')}}" class="btn btn-danger btn-lg mt-3">Cancel</a>
                             </div>
                         </div>
                     </div>
