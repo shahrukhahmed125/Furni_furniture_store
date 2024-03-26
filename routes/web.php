@@ -63,6 +63,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('/add_product',[AdminController::class,'add_product'])->name('add_product');
             Route::get('/all_product',[AdminController::class,'all_product'])->name('all_product');
             Route::post('/add_product_post',[AdminController::class,'add_product_post'])->name('add_product_post');
+            Route::get('/delete_product/{id}',[AdminController::class,'delete_product'])->name('delete_product');
+            Route::get('/edit_product/{id}',[AdminController::class,'edit_product'])->name('edit_product');
         });
 
     //----------- END ADMIN ROUTES ----------//

@@ -212,8 +212,21 @@ class AdminController extends Controller
         // },'category'])->get();
         $data = Product::with(['user.role', 'category'])->get();
 
-        // dd($data->category);
-
         return view('admin.all_product', compact('data'));
+    }
+
+    public function delete_product($id)
+    {
+        $data = Product::findOrfail($id);
+        $data->delete();
+
+        return redirect()->back()->with('msg', 'Product deleted successfully!');
+    }
+
+    public function edit_product($id)
+    {
+        $data = Product::findOrfail($id);
+        $cat = Category::all();
+        return view('admin.edit_product', compact('data', 'cat'));
     }
 }

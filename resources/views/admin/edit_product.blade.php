@@ -1,13 +1,8 @@
 @extends('admin.masterpage')
-@section('title', 'Edit Users')
+@section('title', 'Edit Products')
 @section('css')
 
-    <style>
-        #datepicker {
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
+
     <style>
         #upload {
             opacity: 0;
@@ -36,9 +31,20 @@
             z-index: 2;
             position: relative;
         }
-
     </style>
-
+    <style>
+        .top-right-conner {
+            position: fixed;
+            top: 8%;
+            right: 0;
+            z-index: 999;
+            /* Ensure it's above other content */
+            margin-top: 20px;
+            /* Adjust if necessary */
+            margin-right: 20px;
+            /* Adjust if necessary */
+        }
+    </style>
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
@@ -50,84 +56,75 @@
 
     <div class="main-panel">
         <div class="content-wrapper">
+            @if (session()->has('msg'))
+                <div class="container" style="z-index: 11;">
+                    <div class="top-right-conner">
+
+                        <div class="toast show bg-success" id="toast"
+                            style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
+                            <div class="toast-header bg-light">
+                                Message
+                                <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{ session()->get('msg') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="page-header">
-                <h3 class="page-title">Users Complete Details</h3>
+                <h3 class="page-title">Product Complete Details</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Users</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Products</li>
                     </ol>
                 </nav>
             </div>
-            <form action="{{ url('/user_update') }}/{{$data->id}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('add_product_post') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Edit Users</h4>
-                                <p class="card-description"> User name must be in <code>string</code>, no
+                                <h4 class="card-title">Edit Products</h4>
+                                <p class="card-description"> Product title must be in <code>string</code>, no
                                     <code>numbers</code>
                                     and <code>special characters</code> are allowed.
                                 </p>
 
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <div class="form-group">
-                                            <label>First Name*</label>
-                                            <input type="text" class="form-control form-control-lg" name="fname"
-                                                value="{{ $fname }}" placeholder="Ex: John">
-                                            @error('fname')
-                                                <code>{{ '*' . $message }}</code>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Last Name*</label>
-                                            <input type="text" class="form-control form-control-lg" name="lname"
-                                                value="{{ $lname }}" placeholder="Ex: Doe">
-                                            @error('lname')
+                                            <label>Title*</label>
+                                            <input type="text" class="form-control form-control-lg" name="title"
+                                                value="{{ $data->title }}" placeholder="Ex: Nordic Chair">
+                                            @error('title')
                                                 <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Email*</label>
-                                            <input type="email" class="form-control form-control-lg" name="email"
-                                                value="{{ $data->email }}" placeholder="Ex: John@gmail.com">
-                                            @error('email')
-                                                <code>{{ '*' . $message }}</code>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="tel" class="form-control form-control-lg" name="phone"
-                                                value="{{ $data->phone }}" placeholder="Ex: 03xxxxxxxxx">
-                                        </div>
-                                    </div>
+                                <div class="form-group my-3">
+                                    <label>Description*</label>
+                                    <textarea class="form-control" id="exampleTextarea1" rows="6" name="description">{{ $data->description }}</textarea>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Role & Permission*</label>
+                                            <label>Category*</label>
                                             <div class="">
-                                                <select class="form-control form-control-lg" name="user_type">
-                                                    <option>Select Role</option>
+                                                <select class="form-control form-control-lg" name="category">
+                                                    <option>Select Category</option>
+                                                    @foreach ($cat as $cat)
 
-                                                    @foreach ($data_role as $data_role)
+                                                        @if ($data->category_id == $cat->id)
+                                                        <option selected value="{{ $cat->id }}">{{ $cat->name }}</option>
 
-                                                        @if ($data->user_type == $data_role->id)
-                                                            <option selected value="{{ $data_role->id }}">
-                                                                {{ $data_role->name }}</option>
                                                         @else
-                                                            <option value="{{ $data_role->id }}">{{ $data_role->name }}
-                                                            </option>
+
+                                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                                         @endif
 
                                                     @endforeach
@@ -137,82 +134,71 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="date">Date</label>
-                                            <div class="input-group date">
-                                                @if ($data->email_verified_at != null)
-                                                <input type="text" class="form-control form-control-lg" id="datepicker"
-                                                    name="date"
-                                                    value="{{ $data->email_verified_at->format('Y-m-d') }}" />
-                                                @else    
-                                                <input type="text" class="form-control form-control-lg" id="datepicker"
-                                                name="date" />
-                                                @endif
-                                            </div>
+                                            <label>Quantity*</label>
+                                            <input type="number" min="0" class="form-control form-control-lg"
+                                                name="quantity" placeholder="Ex: 30" value="{{$data->quantity}}">
+                                            @error('quantity')
+                                                <code>{{ '*' . $message }}</code>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mt-3">
-                                    <label>Address</label>
-                                    <textarea class="form-control" id="exampleTextarea1" rows="6" name="address">{{ $data->address }}</textarea>
-                                </div>
-                                <div class="row mt-5">
+                                <div class="row mt-3">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Password*</label>
-                                            <input type="password" class="form-control form-control-lg" name="password"
-                                                value="{{ $data->password }}" placeholder="xxxxxxxxxxx">
-                                            @error('password')
+                                            <label>Price*</label>
+                                            <input type="number" class="form-control form-control-lg" name="price"
+                                                placeholder="Rs.1000" value="{{$data->price}}">
+                                            @error('price')
                                                 <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Confirm Password*</label>
-                                            <input type="password" class="form-control form-control-lg"
-                                                name="password_confirmation" placeholder="xxxxxxxxxxx"
-                                                value="{{ $data->password }}">
-                                            @error('password_confirmation')
+                                            <label>Discount Price</label>
+                                            <input type="number" class="form-control form-control-lg" name="discount_price"
+                                                placeholder="Rs.50" value="{{$data->discount_price}}">
+                                            @error('discount_price')
                                                 <code>{{ '*' . $message }}</code>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-lg mt-3">Update User</button>
-                                <a href="{{route('users')}}" class="btn btn-danger btn-lg mt-3">Cancel</a>
+                                <button type="submit" class="btn btn-success btn-lg mt-3">Create Product</button>
+                                <a href="{{route('all_product')}}" class="btn btn-danger btn-lg mt-3">Cancel</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Upload Users Image</h4>
+                                <h4 class="card-title">Upload Product Image</h4>
                                 <p class="card-description">Image must be in <code>jpg</code>, <code>jpeg</code>
                                     and <code>png</code>.</p><br>
                                 <div class="text-center image-area mt-4"">
-                                    @if ($data->profile_img)
-                                        <img src="{{ asset('admin/assets/user_img') }}/{{ $data->profile_img }}"
-                                            class="img-fluid rounded shadow-sm mx-auto d-block" id="imageResult">
-                                    @else
-                                        <img src="#" class="img-fluid rounded shadow-sm mx-auto d-block"
-                                            id="imageResult">
-                                    @endif
+                                    @if ($data->product_img)
+                                    <img src="{{ asset('admin/assets/product_img') }}/{{ $data->product_img }}"
+                                        class="img-fluid rounded shadow-sm mx-auto d-block" id="imageResult">
+                                @else
+                                    <img src="#" class="img-fluid rounded shadow-sm mx-auto d-block"
+                                        id="imageResult">
+                                @endif
 
                                 </div><br>
                                 <div class="form-group">
                                     <label>File upload</label>
                                     <input type="file" name="img" class="file-upload-default"
-                                        value="{{ $data->profile_img }}" onchange="readURL(this);" id="upload">
+                                        value="{{ $data->product_img }}" onchange="readURL(this);" id="upload">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled
-                                            placeholder="Upload Image" value="{{ $data->profile_img }}">
+                                            placeholder="Upload Image" value="{{ $data->product_img }}">
                                         <span class="input-group-append">
                                             <button class="file-upload-browse btn btn-primary"
                                                 type="button">Upload</button>
                                         </span>
                                     </div><br>
-                                    <button id="removeImage"
-                                        class="btn btn-danger btn-block btn-md rounded">Reset</button>
+                                    <button id="removeImage" class="btn btn-danger btn-block btn-md rounded">Reset</button>
                                 </div>
                             </div>
                         </div>
@@ -239,8 +225,8 @@
 
         <script>
             /*  ==========================================
-                SHOW UPLOADED IMAGE
-             * ========================================== */
+                                    SHOW UPLOADED IMAGE
+                        * ========================================== */
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -309,7 +295,13 @@
                 }
             });
         </script>
+        <script>
+            const myTimeout = setTimeout(closeAlert, 3000);
 
+            function closeAlert() {
+                document.getElementById("toast").style.display = 'none';
+            }
+        </script>
         <!-- Plugin js for this page -->
         <script src="{{ asset('admin/assets/vendors/select2/select2.min.js') }}"></script>
         <script src="{{ asset('admin/assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
@@ -320,41 +312,5 @@
         <script src="{{ asset('admin/assets/js/typeahead.js') }}"></script>
         <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
         <!-- End custom js for this page -->
-        <script>
-            // JavaScript to activate the datepicker
-            document.addEventListener('DOMContentLoaded', function() {
-                // Initialize the datepicker input
-                var datepickerInput = document.getElementById('datepicker');
 
-                // When the datepicker input is focused, show the datepicker
-                datepickerInput.addEventListener('focus', function() {
-                    // Create a datepicker element
-                    var datepicker = document.createElement('input');
-                    datepicker.type = 'date';
-                    datepicker.style.position = 'absolute';
-                    datepicker.style.zIndex = '1000';
-
-                    // Position the datepicker below the input
-                    var rect = datepickerInput.getBoundingClientRect();
-                    datepicker.style.top = rect.bottom + 'px';
-                    datepicker.style.left = rect.left + 'px';
-
-                    // Append the datepicker to the body
-                    document.body.appendChild(datepicker);
-
-                    // When a date is selected, update the input value and remove the datepicker
-                    datepicker.addEventListener('change', function() {
-                        datepickerInput.value = datepicker.value;
-                        document.body.removeChild(datepicker);
-                    });
-
-                    // When clicking outside the datepicker, remove it
-                    document.addEventListener('click', function(event) {
-                        if (!datepicker.contains(event.target) && event.target !== datepickerInput) {
-                            document.body.removeChild(datepicker);
-                        }
-                    });
-                });
-            });
-        </script>
     @stop

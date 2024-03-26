@@ -2,7 +2,19 @@
 @section('title', 'All Products')
 @section('css')
 
-
+<style>
+    .top-right-conner {
+        position: fixed;
+        top: 8%;
+        right: 0;
+        z-index: 999;
+        /* Ensure it's above other content */
+        margin-top: 20px;
+        /* Adjust if necessary */
+        margin-right: 20px;
+        /* Adjust if necessary */
+    }
+</style>
 
 @stop
 
@@ -85,10 +97,10 @@
                                                 </td>
                                                 <td> {{ $product->created_at->format('F j, Y') }} </td>
                                                 <td>
-                                                    <a href="{{ url('/user_delete') }}/{{ $product->id }}"
+                                                    <a href="{{ url('/delete_product') }}/{{ $product->id }}"
                                                         class="badge badge-danger"><i class="mdi mdi-delete"
                                                             style="font-size: 20px"></i></a>
-                                                    <a href="{{ url('/user_edit') }}/{{ $product->id }}"
+                                                    <a href="{{ url('/edit_product') }}/{{ $product->id }}"
                                                         class="badge badge-primary"><i class="mdi mdi-grease-pencil"
                                                             style="font-size: 20px"></i></a>
                                                 </td>
@@ -120,6 +132,12 @@
 
 @section('js')
 
+<script>
+    const myTimeout = setTimeout(closeAlert, 3000);
 
+    function closeAlert() {
+        document.getElementById("toast").style.display = 'none';
+    }
+</script>
 
 @stop
