@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -10,7 +12,8 @@ class HomeController extends Controller
     public function index()
     {
         $data = Product::paginate(3);
-        return view('home.index', compact('data'));
+        $blog = Blog::paginate(3);
+        return view('home.index', compact('data', 'blog'));
     }
     public function shop()
     {
@@ -23,7 +26,8 @@ class HomeController extends Controller
     }
     public function blog()
     {
-        return view('home.blog');
+        $data = Blog::all();
+        return view('home.blog', compact('data'));
     }
     public function services()
     {
@@ -32,6 +36,23 @@ class HomeController extends Controller
     public function contact()
     {
         return view('home.contact');
+    }
+    public function contact_post(Request $request)
+    {
+        $request->validate([
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        $data = new Contact;
+        $name = $request->fname. ' ' .$request->lname;
+        $data->name = $name; 
+        $data->fill($request->all());
+        $data->save();
+
+        return redirect()->back()->with('msg', 'Message sent successfully!');
     }
     public function cart()
     {

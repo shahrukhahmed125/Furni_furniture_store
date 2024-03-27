@@ -364,11 +364,11 @@
                 });
             });
         </script>
-                <script>
-                    const myTimeout = setTimeout(closeAlert, 3000);
+        <script>
+            const myTimeout = setTimeout(closeAlert, 3000);
         
-                    function closeAlert() {
-                        document.getElementById("toast").style.display = 'none';
-                    }
-                </script>
+            function closeAlert() {
+                document.getElementById("toast").style.display = 'none';
+            }
+        </script>
     @stop

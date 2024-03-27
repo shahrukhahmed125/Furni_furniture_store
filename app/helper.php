@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('dashboard_user')) {
@@ -13,3 +14,11 @@ if (!function_exists('dashboard_user')) {
     }
 }
 
+
+if(!function_exists('timeAgo'))
+{
+    function timeAgo($timestamp)
+    {
+        return Carbon::parse($timestamp)->diffForHumans();
+    }
+}

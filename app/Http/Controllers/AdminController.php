@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
@@ -198,6 +200,14 @@ class AdminController extends Controller
         return redirect()->back()->with('msg','Category added successfully!');
     }
 
+    public function product_category_delete($id)
+    {
+        $data = Category::findOrfail($id);
+        $data->delete();
+
+        return redirect()->back()->with('msg', 'Product category deleted sucessfull!');
+    }
+
     public function add_product()
     {
         $data = Category::all();
@@ -262,5 +272,35 @@ class AdminController extends Controller
         $data = Product::findOrfail($id);
         $cat = Category::all();
         return view('admin.edit_product', compact('data', 'cat'));
+    }
+
+    public function all_blog()
+    {
+        $data = Blog::all();
+
+        return view('admin.all_blog', compact('data'));
+    }
+
+    public function blog_delete($id)
+    {
+        $data = Blog::findOrfail($id);
+        $data->delete();
+
+        return redirect()->back()->with('msg', 'Blog deleted successfully!');
+    }
+
+    public function message()
+    {
+        $data = Contact::all();
+
+        return view('admin.messages',compact('data'));
+    }
+
+    public function message_delete($id)
+    {
+        $data = Contact::findOrfail($id);
+        $data->delete();
+
+        return redirect()->back()->with('msg', 'Message deleted successfully!');
     }
 }

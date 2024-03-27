@@ -28,7 +28,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/about',[HomeController::class,'about'])->name('about');
     Route::get('/blog',[HomeController::class,'blog'])->name('blog');
     Route::get('/services',[HomeController::class,'services'])->name('services');
+
     Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+    Route::post('/contact_post',[HomeController::class,'contact_post'])->name('contact_post');
+
     Route::get('/cart',[HomeController::class,'cart'])->name('cart');
     Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
     Route::get('/thankyou',[HomeController::class,'thankyou'])->name('thankyou');
@@ -62,12 +65,19 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/category',[AdminController::class,'category'])->name('category');
             Route::post('/categoryPost',[AdminController::class,'categoryPost'])->name('categoryPost');
+            Route::get('/product_category_delete/{id}',[AdminController::class,'product_category_delete'])->name('product_category_delete');
 
             Route::get('/add_product',[AdminController::class,'add_product'])->name('add_product');
             Route::get('/all_product',[AdminController::class,'all_product'])->name('all_product');
             Route::post('/add_product_post',[AdminController::class,'add_product_post'])->name('add_product_post');
             Route::get('/delete_product/{id}',[AdminController::class,'delete_product'])->name('delete_product');
             Route::get('/edit_product/{id}',[AdminController::class,'edit_product'])->name('edit_product');
+
+            Route::get('/all_blog',[AdminController::class, 'all_blog'])->name('all_blog');
+            Route::get('/blog_delete/{id}',[AdminController::class, 'blog_delete'])->name('blog_delete');
+
+            Route::get('/message',[AdminController::class, 'message'])->name('message');
+            Route::get('/message_delete/{id}',[AdminController::class, 'message_delete'])->name('message_delete');
         });
 
     //----------- END ADMIN ROUTES ----------//

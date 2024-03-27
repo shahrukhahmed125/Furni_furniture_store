@@ -85,30 +85,47 @@
               </div> <!-- /.service -->
             </div>
           </div>
-
-          <form>
+            @if (session()->has('msg'))
+            <div class="border p-4 rounded mb-5" role="alert" id="alert">
+              {{ session()->get('msg') }}
+          </div>
+            @endif
+          <form action="{{route('contact_post')}}" method="POST">
+            @csrf
             <div class="row">
               <div class="col-6">
                 <div class="form-group">
                   <label class="text-black" for="fname">First name</label>
-                  <input type="text" class="form-control" id="fname">
+                  <input type="text" class="form-control" id="fname" name="fname" value="{{old('fname')}}" required>
+                  @error('fname')
+                    {{ '*' . $message }}
+                  @enderror
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group">
                   <label class="text-black" for="lname">Last name</label>
-                  <input type="text" class="form-control" id="lname">
+                  <input type="text" class="form-control" id="lname" name="lname" value="{{old('lname')}}" required>
+                  @error('lname')
+                    {{ '*' . $message }}
+                  @enderror
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label class="text-black" for="email">Email address</label>
-              <input type="email" class="form-control" id="email">
+              <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" required>
+              @error('email')
+                {{ '*' . $message }}
+              @enderror
             </div>
 
             <div class="form-group mb-5">
               <label class="text-black" for="message">Message</label>
-              <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+              <textarea class="form-control" id="message" cols="30" rows="5" name="message" required>{{old('message')}}</textarea>
+              @error('message')
+                {{ '*' . $message }}
+              @enderror
             </div>
 
             <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
@@ -134,5 +151,12 @@
 
 @section('js')
 
+<script>
+  const myTimeout = setTimeout(closeAlert, 3000);
+
+  function closeAlert() {
+      document.getElementById("alert").style.display = 'none';
+  }
+</script>
 
 @stop

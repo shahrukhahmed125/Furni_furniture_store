@@ -130,7 +130,7 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="">Blog Category</a></li>
                 <li class="nav-item"> <a class="nav-link" href="">Add Blogs</a></li>
-                <li class="nav-item"> <a class="nav-link" href="">All Blogs</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('all_blog')}}">All Blogs</a></li>
               </ul>
             </div>
           </li>
@@ -151,11 +151,11 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('message')}}">
               <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
+                <i class="mdi mdi-message"></i>
               </span>
-              <span class="menu-title">Nothing</span>
+              <span class="menu-title">Messages</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -168,8 +168,8 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('users')}}">All Users</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('add_users')}}"> Add Users </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('users')}}">All Users</a></li>
               </ul>
             </div>
           </li>
@@ -210,36 +210,36 @@
                             aria-labelledby="createbuttonDropdown">
                             <h6 class="p-3 mb-0">Projects</h6>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a class="dropdown-item preview-item" href="{{route('add_users')}}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-file-outline text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">Software Development</p>
+                                    <p class="preview-subject ellipsis mb-1">Store User</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a class="dropdown-item preview-item" href="{{route('add_product')}}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-web text-info"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">UI Development</p>
+                                    <p class="preview-subject ellipsis mb-1">Store Product</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a class="dropdown-item preview-item" href="#">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-layers text-danger"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">Software Testing</p>
+                                    <p class="preview-subject ellipsis mb-1">New Blog</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>

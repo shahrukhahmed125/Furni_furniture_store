@@ -2,11 +2,41 @@
 @section('title', 'Roles & Permission')
 @section('css')
 
+<style>
+  .top-right-conner {
+      position: fixed;
+      top: 8%;
+      right: 0;
+      z-index: 999;
+      /* Ensure it's above other content */
+      margin-top: 20px;
+      /* Adjust if necessary */
+      margin-right: 20px;
+      /* Adjust if necessary */
+  }
+</style>
 
 @stop
 
 @section('content')
 <div class="main-panel">
+    @if (session()->has('msg'))
+      <div class="container" style="z-index: 11;">
+          <div class="top-right-conner">
+
+              <div class="toast show bg-success" id="toast"
+                  style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
+                  <div class="toast-header bg-light">
+                      Message
+                      <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                  </div>
+                  <div class="toast-body">
+                      {{ session()->get('msg') }}
+                  </div>
+              </div>
+          </div>
+      </div>
+    @endif
     <div class="content-wrapper">
       <div class="page-header">
         <h3 class="page-title"> Roles & Permissions Tables </h3>
@@ -86,5 +116,12 @@
 
 @section('js')
 
+<script>
+  const myTimeout = setTimeout(closeAlert, 3000);
+
+  function closeAlert() {
+      document.getElementById("toast").style.display = 'none';
+  }
+</script>
 
 @stop

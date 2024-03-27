@@ -2,6 +2,19 @@
 @section('title','Add Category')
 @section('css')
 
+<style>
+  .top-right-conner {
+      position: fixed;
+      top: 8%;
+      right: 0;
+      z-index: 999;
+      /* Ensure it's above other content */
+      margin-top: 20px;
+      /* Adjust if necessary */
+      margin-right: 20px;
+      /* Adjust if necessary */
+  }
+</style>
 
 @stop
 
@@ -9,6 +22,23 @@
 
 <div class="main-panel">
     <div class="content-wrapper">
+        @if (session()->has('msg'))
+          <div class="container" style="z-index: 11;">
+              <div class="top-right-conner">
+
+                  <div class="toast show bg-success" id="toast"
+                      style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
+                      <div class="toast-header bg-light">
+                          Message
+                          <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                      </div>
+                      <div class="toast-body">
+                          {{ session()->get('msg') }}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        @endif
       <div class="page-header">
         <h3 class="page-title"> Product Categories </h3>
         <nav aria-label="breadcrumb">
@@ -57,7 +87,7 @@
                       <td>{{$data->id}}</td>
                       <td> {{$data->name}} </td>
                       <td>
-                        <a href="{{url('/role_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
+                        <a href="{{url('/product_category_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
                         <a href="#" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
                       </td>
                     </tr>
@@ -87,5 +117,12 @@
 
 @section('js')
 
+<script>
+  const myTimeout = setTimeout(closeAlert, 3000);
+
+  function closeAlert() {
+      document.getElementById("toast").style.display = 'none';
+  }
+</script>
 
 @stop
