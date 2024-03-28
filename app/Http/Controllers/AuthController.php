@@ -26,14 +26,14 @@ class AuthController extends Controller
         if(Auth::attempt($request->only('email', 'password')))
         {
             $user_type = Auth::user()->user_type;
-            if($user_type == 1)
+            if($user_type == 3)
             {
-                return redirect('/AdminDashboard');
+                return redirect('/');
             }
-            elseif($user_type = 3)
+            else
             {
 
-                return redirect('/');
+                return redirect('/AdminDashboard');
             }
         }
 

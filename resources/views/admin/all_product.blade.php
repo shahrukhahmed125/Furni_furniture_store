@@ -49,17 +49,19 @@
                 </nav>
             </div>
             <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
+
+                <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            </p>
+                            <div class="d-flex flex-row justify-content-between">
+                                <h4 class="card-title">List</h4>
+                            </div>
                             <div class="table-responsive">
+                                
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th> Product </th>
-                                            <th> Title</th>
-                                            <th> Description </th>
                                             <th> Category </th>
                                             <th> Quantity </th>
                                             <th> Price </th>
@@ -72,30 +74,71 @@
                                     <tbody>
                                         @foreach ($data as $product)
                                             <tr>
-                                                <td class="py-1">
-                                                    @if ($product->product_img == null)
-                                                        <img src="{{ asset('admin/assets/images/faces-clipart/pic-1.png') }}"
-                                                            alt="image" />
-                                                    @else
-                                                        <img src="{{ asset('admin/assets/product_img/') }}/{{ $product->product_img }}"
-                                                            alt="image" />
-                                                    @endif
+                                                <td>
+                                                    <div class="preview-list">
+                                                        <div class="preview-item">
+                                                            <div class="preview-thumbnail">
+                                                            @if ($product->product_img == null)
+                                                                <img src="{{ asset('admin/assets/images/faces-clipart/pic-1.png') }}"
+                                                                    alt="image" />
+                                                            @else
+                                                                <img src="{{ asset('admin/assets/product_img/') }}/{{ $product->product_img }}"
+                                                                    alt="image" />
+                                                            @endif
+                                                            </div>
+                                                            <div class="preview-item-content d-flex flex-grow">
+                                                                <div class="flex-grow">
+                                                                    <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                                                                        <h6 class="preview-subject">{{$product->title}}</h6>
+            
+                                                                    </div>
+                                                                    <p class="text-muted">{{Str::limit($product->description, 50)}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                <td> {{ $product->title }} </td>
-                                                <td class="text-wrap"> {{ $product->description }} </td>
-                                                
-                                                <td class="text-white">
-                                                    {{ $product->category->name ?? 'None' }}
+                                                <td>
+                                                    {{$product->category->name}}
                                                 </td>
-
-                                                <td> {{ $product->quantity }} </td>
-                                                <td> {{ 'Rs.' . $product->price }} </td>
-                                                <td> {{ 'Rs.' . $product->discount_price }} </td>
-                                                <td class="text-white"> {{ $product->user->name }}
-                                                    <br>
-                                                    <span class="text-small"> {{ $product->user->role->name }} </span>
+                                                <td>
+                                                    {{$product->quantity}}
                                                 </td>
-                                                <td> {{ $product->created_at->format('F j, Y') }} </td>
+                                                <td>
+                                                    {{'Rs.'.$product->price}}
+                                                </td>
+                                                <td>
+                                                    {{'Rs.'.$product->discount_price}}
+                                                </td>
+                                                <td>
+                                                    <div class="preview-list">
+                                                        <div class="preview-item">
+                                                            <div class="preview-thumbnail">
+                                                                @if ($product->user->profile_img == null)
+                                                                <img src="{{asset('admin\assets\images\faces-clipart\pic-1.png')}}" alt="image" />
+                                                                @else
+                                                                <img src="{{asset('admin/assets/user_img/')}}/{{$product->user->profile_img}}" alt="image" />
+                                                                @endif
+                                                            </div>
+                                                            <div class="preview-item-content d-flex flex-grow">
+                                                                <div class="flex-grow">
+                                                                    <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                                                                        <h6 class="preview-subject">{{$product->user->name}}</h6>
+            
+                                                                    </div>
+                                                                    <p class="text-muted">{{$product->user->role->name}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $timestamp = $product->created_at;
+                                                        $date = timeAgo($timestamp);
+                                                    @endphp
+                                                    {{$date}}
+                                                </td>
                                                 <td>
                                                     <a href="{{ url('/delete_product') }}/{{ $product->id }}"
                                                         class="badge badge-danger"><i class="mdi mdi-delete"
@@ -107,7 +150,7 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
+                                </table>    
                             </div>
                         </div>
                     </div>

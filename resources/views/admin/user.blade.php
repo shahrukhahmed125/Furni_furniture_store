@@ -40,6 +40,23 @@
               </div>
           </div>
         @endif
+        @if (session()->has('error'))
+          <div class="container" style="z-index: 11;">
+              <div class="top-right-conner">
+
+                  <div class="toast show bg-success" id="toast"
+                      style="background-color:#FC424A;color:white;font-size:18px;font-weight:800;border:none;">
+                      <div class="toast-header bg-light">
+                          Message
+                          <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                      </div>
+                      <div class="toast-body">
+                          {{ session()->get('msg') }}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        @endif
       <div class="page-header">
         <h3 class="page-title"> Users Tables </h3>
         <nav aria-label="breadcrumb">
@@ -53,6 +70,9 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
+              <div class="d-flex flex-row justify-content-between">
+                <h4 class="card-title">List</h4>
+              </div>
               </p>
               <div class="table-responsive">
                 <table class="table table-striped">

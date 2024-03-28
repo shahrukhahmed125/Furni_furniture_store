@@ -112,28 +112,39 @@
             </a>
             <div class="collapse" id="product">
               <ul class="nav flex-column sub-menu">
+                @if (Auth::user()->user_type != 2)
+                  
                 <li class="nav-item"> <a class="nav-link" href="{{route('category')}}">Product Category</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('add_product')}}">Add Products</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('all_product')}}">All Products</a></li>
+
+                @else
+
+                <li class="nav-item"> <a class="nav-link" href="{{route('add_product')}}">Add Products</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('all_product')}}">All Products</a></li>
+                @endif
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
-              <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
-              </span>
-              <span class="menu-title">Blogs</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="blog">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="">Blog Category</a></li>
-                <li class="nav-item"> <a class="nav-link" href="">Add Blogs</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{route('all_blog')}}">All Blogs</a></li>
-              </ul>
-            </div>
-          </li>
+          @if (Auth::user()->user_type != 2)
+              <li class="nav-item menu-items">
+                <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-playlist-play"></i>
+                  </span>
+                  <span class="menu-title">Blogs</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="blog">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="">Blog Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">Add Blogs</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('all_blog')}}">All Blogs</a></li>
+                  </ul>
+                </div>
+              </li>
+          
+          @endif
           <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">
@@ -142,14 +153,17 @@
               <span class="menu-title">Tables</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('roles')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-chart-bar"></i>
-              </span>
-              <span class="menu-title">Roles</span>
-            </a>
-          </li>
+          @if (Auth::user()->user_type != 2)
+            
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="{{route('roles')}}">
+                <span class="menu-icon">
+                  <i class="mdi mdi-chart-bar"></i>
+                </span>
+                <span class="menu-title">Roles</span>
+              </a>
+            </li>
+          @endif
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('message')}}">
               <span class="menu-icon">

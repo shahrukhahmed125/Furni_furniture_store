@@ -21,6 +21,11 @@ class AdminMiddleware
 
             return $next($request);
         }
+        elseif(Auth::check() && Auth::user()->user_type == 2)
+        {
+
+            return $next($request);
+        }
         return redirect('/');
     }
 }
