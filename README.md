@@ -7,4 +7,6 @@ Work Done:
 
 --Authentication is almost completed.
 
---Allthe other work is coming soon.
+--Message show is complete.
+
+--All the other work is coming soon.
