@@ -1,5 +1,5 @@
 @extends('admin.masterpage')
-@section('title', 'Roles & Permission')
+@section('title','Add Blog Category')
 @section('css')
 
 <style>
@@ -19,31 +19,32 @@
 @stop
 
 @section('content')
-<div class="main-panel">
-    @if (session()->has('msg'))
-      <div class="container" style="z-index: 11;">
-          <div class="top-right-conner">
 
-              <div class="toast show bg-success" id="toast"
-                  style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
-                  <div class="toast-header bg-light">
-                      Message
-                      <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
-                  </div>
-                  <div class="toast-body">
-                      {{ session()->get('msg') }}
+<div class="main-panel">
+    <div class="content-wrapper">
+        @if (session()->has('msg'))
+          <div class="container" style="z-index: 11;">
+              <div class="top-right-conner">
+
+                  <div class="toast show bg-success" id="toast"
+                      style="background-color:#00AC4A;color:white;font-size:18px;font-weight:800;border:none;">
+                      <div class="toast-header bg-light">
+                          Message
+                          <button type="button" class="btn btn-close" data-bs-dismiss="toast"></button>
+                      </div>
+                      <div class="toast-body">
+                          {{ session()->get('msg') }}
+                      </div>
                   </div>
               </div>
           </div>
-      </div>
-    @endif
-    <div class="content-wrapper">
+        @endif
       <div class="page-header">
-        <h3 class="page-title"> Roles & Permissions Tables </h3>
+        <h3 class="page-title"> Blog Categories </h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Roles & Permissions tables</li>
+            <li class="breadcrumb-item active" aria-current="page">Blog Categories</li>
           </ol>
         </nav>
       </div>
@@ -51,16 +52,16 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Add Role</h4>
-                <p class="card-description"> Roles examples like <code>admin</code> and <code>customer</code>.</p>
+                <h4 class="card-title">Add Category</h4>
+                <p class="card-description"> Category examples like <code>Fashion</code> and <code>Trends</code>.</p>
 
-                <form action="{{url('/rolesPost')}}" method="POST">
+                <form action="{{route('blog_category_post')}}" method="POST">
                     @csrf
                     <div class="form-group">
                       <input type="text" class="form-control form-control-lg" name="name" value="{{old('name')}}">
-                      @error('name')
-                        <code>{{'*'.$message}}</code>
-                      @enderror
+                        @error('name')
+                            <code>{{'*'.$message}}</code>
+                        @enderror
                       <br>
                       <button type="submit" class="btn btn-success btn-lg mt-3">Create</button>
                     </div>
@@ -72,7 +73,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body p-5">
-                <h4 class="card-title">All Roles</h4>
+                <h4 class="card-title">All Categories</h4>
               </p>
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -90,7 +91,7 @@
                       <td>{{$data->id}}</td>
                       <td> {{$data->name}} </td>
                       <td>
-                        <a href="{{url('/role_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
+                        <a href="{{url('/blog_category_delete')}}/{{$data->id}}" class="badge badge-danger"><i class="mdi mdi-delete" style="font-size: 20px"></i></a>
                         <a href="#" class="badge badge-primary"><i class="mdi mdi-grease-pencil" style="font-size: 20px"></i></a>
                       </td>
                     </tr>

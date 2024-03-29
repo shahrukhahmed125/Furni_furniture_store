@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Product;
@@ -156,7 +157,7 @@ class AdminController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|unique:roles,name',
             ]
         );
 
@@ -192,6 +193,10 @@ class AdminController extends Controller
 
     public function categoryPost(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:categories,name',
+        ]);
+
         $data = new category;
         $data->fill($request->all());
 
@@ -279,6 +284,34 @@ class AdminController extends Controller
         $data = Blog::all();
 
         return view('admin.all_blog', compact('data'));
+    }
+
+    public function blog_category()
+    {
+        $data = BlogCategory::all();
+
+        return view('admin.blog_category', compact('data'));
+    }
+
+    public function blog_category_post(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:blog_categories,name',
+        ]);
+        
+        $data = new BlogCategory;
+        $data->fill($request->all());
+        $data->save();
+        
+        return redirect()->back()->with('msg', 'Blog category added successfully!');
+    }
+
+    public function blog_category_delete($id)
+    {
+        $data = BlogCategory::findOrfail($id);
+        $data->delete();
+        
+        return redirect()->back()->with('msg', 'Blog category deleted successfully!');
     }
 
     public function blog_delete($id)

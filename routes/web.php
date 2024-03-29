@@ -76,6 +76,10 @@ use Illuminate\Support\Facades\Route;
             Route::get('/all_blog',[AdminController::class, 'all_blog'])->name('all_blog');
             Route::get('/blog_delete/{id}',[AdminController::class, 'blog_delete'])->name('blog_delete');
 
+            Route::get('/blog_category',[AdminController::class, 'blog_category'])->name('blog_category');
+            Route::post('/blog_category_post',[AdminController::class, 'blog_category_post'])->name('blog_category_post');
+            Route::get('/blog_category_delete/{id}',[AdminController::class, 'blog_category_delete'])->name('blog_category_delete');
+
             Route::get('/message',[AdminController::class, 'message'])->name('message');
             Route::get('/message_delete/{id}',[AdminController::class, 'message_delete'])->name('message_delete');
         });

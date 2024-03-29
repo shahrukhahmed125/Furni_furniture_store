@@ -58,8 +58,12 @@
                 <form action="{{url('/categoryPost')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-lg" name="name"><br>
-                      <button type="submit" class="btn btn-success btn-lg">Create</button>
+                      <input type="text" class="form-control form-control-lg" name="name" value="{{old('name')}}">
+                      @error('name')
+                        <code>{{'*'.$message}}</code>
+                      @enderror
+                      <br>
+                      <button type="submit" class="btn btn-success btn-lg mt-3">Create</button>
                     </div>
                 </form>
 
