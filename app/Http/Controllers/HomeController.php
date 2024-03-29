@@ -29,6 +29,11 @@ class HomeController extends Controller
         $data = Blog::all();
         return view('home.blog', compact('data'));
     }
+    public function blog_detail($id)
+    {
+        $data = Blog::findOrfail($id);
+        return view('home.blog_detail', compact('data'));
+    }
     public function services()
     {
         return view('home.services');

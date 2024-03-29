@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/shop',[HomeController::class,'shop'])->name('shop');
     Route::get('/about',[HomeController::class,'about'])->name('about');
     Route::get('/blog',[HomeController::class,'blog'])->name('blog');
+    Route::get('/blog_detail/{id}',[HomeController::class,'blog_detail'])->name('blog_detail');
     Route::get('/services',[HomeController::class,'services'])->name('services');
 
     Route::get('/contact',[HomeController::class,'contact'])->name('contact');
@@ -74,7 +75,10 @@ use Illuminate\Support\Facades\Route;
             Route::get('/edit_product/{id}',[AdminController::class,'edit_product'])->name('edit_product');
 
             Route::get('/all_blog',[AdminController::class, 'all_blog'])->name('all_blog');
+            Route::get('/add_blog',[AdminController::class, 'add_blog'])->name('add_blog');
+            Route::post('/add_blog_post',[AdminController::class, 'add_blog_post'])->name('add_blog_post');
             Route::get('/blog_delete/{id}',[AdminController::class, 'blog_delete'])->name('blog_delete');
+            Route::get('/blog_edit/{id}',[AdminController::class, 'blog_edit'])->name('blog_edit');
 
             Route::get('/blog_category',[AdminController::class, 'blog_category'])->name('blog_category');
             Route::post('/blog_category_post',[AdminController::class, 'blog_category_post'])->name('blog_category_post');

@@ -77,7 +77,7 @@
                                                                 @if ($data->blog_img == null)
                                                                 <img src="{{asset('admin\assets\images\faces-clipart\pic-1.png')}}" alt="image" />
                                                                 @else
-                                                                {{-- <img src="{{asset('admin/assets/user_img/')}}/{{$data->profile_img}}" alt="image" /> --}}
+                                                                <img src="{{asset('admin/assets/blog_img/')}}/{{$data->blog_img}}" alt="image" />
                                                                 @endif
                                                             </div>
                                                             <div class="preview-item-content d-flex flex-grow">
@@ -128,7 +128,7 @@
                                                     <a href="{{ url('/blog_delete') }}/{{ $data->id }}" title="delete"
                                                         class="badge badge-danger"><i class="mdi mdi-delete"
                                                             style="font-size: 20px"></i></a>
-                                                    <a href="#" title="edit"
+                                                    <a href="{{url('/blog_edit')}}/{{$data->id}}" title="edit"
                                                         class="badge badge-primary"><i class="mdi mdi-grease-pencil"
                                                             style="font-size: 20px"></i></a>
                                                 </td>

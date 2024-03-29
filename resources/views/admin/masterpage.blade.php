@@ -138,7 +138,7 @@
                 <div class="collapse" id="blog">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{route('blog_category')}}">Blog Category</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">Add Blogs</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('add_blog')}}">Add Blogs</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('all_blog')}}">All Blogs</a></li>
                   </ul>
                 </div>

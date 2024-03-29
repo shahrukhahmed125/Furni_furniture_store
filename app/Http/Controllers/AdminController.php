@@ -286,6 +286,46 @@ class AdminController extends Controller
         return view('admin.all_blog', compact('data'));
     }
 
+    public function add_blog()
+    {
+        $data = BlogCategory::all();
+        
+        return view('admin.add_blog', compact('data'));
+    }
+
+    public function add_blog_post(Request $request)
+    {
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'content' => 'required',
+                // 'blog_img' => 'required|image',
+            ]
+        );
+
+        $data = new Blog;
+        $data->fill($request->all());
+        $data->category_id = $request->category;
+
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+        }
+
+        if($request->hasFile('img'))
+        {
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/blog_img'), $imageName);
+            $data->blog_img = $imageName;
+        }
+
+        $data->save();
+
+        return redirect()->back()->with('msg', 'Blog added successfully!');
+    }
+
     public function blog_category()
     {
         $data = BlogCategory::all();
@@ -312,6 +352,13 @@ class AdminController extends Controller
         $data->delete();
         
         return redirect()->back()->with('msg', 'Blog category deleted successfully!');
+    }
+
+    public function blog_edit($id)
+    {
+        $data = Blog::findOrfail($id);
+        $data_cat = BlogCategory::all();
+        return view('admin.edit_blog',compact('data','data_cat'));
     }
 
     public function blog_delete($id)
