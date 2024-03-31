@@ -32,7 +32,9 @@ class HomeController extends Controller
     public function blog_detail($id)
     {
         $data = Blog::findOrfail($id);
-        return view('home.blog_detail', compact('data'));
+        $recent = Blog::orderBy('created_at', 'desc')->paginate(3);
+
+        return view('home.blog_detail', compact('data', 'recent'));
     }
     public function services()
     {

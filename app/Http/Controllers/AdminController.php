@@ -140,7 +140,7 @@ class AdminController extends Controller
             $data->profile_img = $imageName;
         }
 
-        $data->save();
+        $data->update();
 
         return redirect('/users')->with('msg','User updated successfully!');
     }
@@ -279,6 +279,41 @@ class AdminController extends Controller
         return view('admin.edit_product', compact('data', 'cat'));
     }
 
+    public function update_product(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'quantity' => 'required|integer',
+                'price' => 'required|integer',
+            ]
+        );
+
+        $data = Product::findOrfail($id);
+        $data->fill($request->all());
+        $data->category_id = $request->category;
+
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+        }
+
+        if($request->hasFile('img'))
+        {
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/product_img'), $imageName);
+            $data->product_img = $imageName;
+        }
+
+        $data->update();
+
+        return redirect('/all_product')->with('msg', 'Product updated successfully!');
+
+    }
+
     public function all_blog()
     {
         $data = Blog::all();
@@ -359,6 +394,40 @@ class AdminController extends Controller
         $data = Blog::findOrfail($id);
         $data_cat = BlogCategory::all();
         return view('admin.edit_blog',compact('data','data_cat'));
+    }
+
+    public function blog_update(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'content' => 'required',
+                // 'blog_img' => 'required|image',
+            ]
+        );
+
+        $data = Blog::findOrfail($id);
+        $data->fill($request->all());
+        $data->category_id = $request->category;
+
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+        }
+
+        if($request->hasFile('img'))
+        {
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $request->img->move(public_path('admin/assets/blog_img'), $imageName);
+            $data->blog_img = $imageName;
+        }
+
+        $data->update();
+
+        return redirect('/all_blog')->with('msg','Blog updated successfully!');
+
     }
 
     public function blog_delete($id)

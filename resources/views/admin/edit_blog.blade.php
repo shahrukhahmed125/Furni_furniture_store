@@ -83,7 +83,7 @@
                     </ol>
                 </nav>
             </div>
-            <form action="{{ route('add_blog_post') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/blog_update') }}/{{$data->id}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8 grid-margin stretch-card">

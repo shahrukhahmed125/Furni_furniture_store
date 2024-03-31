@@ -46,10 +46,11 @@
                 <div class="col-12 col-sm-6 col-md-4 mb-5">
                     <div class="post-entry">
                         @if ($blog->blog_img == null)
-                        <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('home/images/post-1.jpg')}}" alt="Image" class="img-fluid"></a>
-                            
+                            <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('home/images/post-1.jpg')}}" alt="Image" class="img-fluid"></a>
+                        @else
+
+                            <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('admin/assets/blog_img/')}}/{{$blog->blog_img}}" alt="Image" class="img-fluid"></a>
                         @endif
-                        <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('admin/assets/blog_img/')}}/{{$blog->blog_img}}" alt="Image" class="img-fluid"></a>
                         <div class="post-content-entry">
                             <h3><a href="#">{{$blog->title}}</a></h3>
                             <div class="meta">

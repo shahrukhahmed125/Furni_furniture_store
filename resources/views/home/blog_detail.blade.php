@@ -72,11 +72,7 @@
             color: white;
             text-align: center;
             background-color: red;
-        }
-    .bg-img img{
-        background-size:cover;
-        background-repeat: no-repeat; 
-    }    
+        }   
 </style>
 
 @stop
@@ -86,27 +82,16 @@
 
     <!-- Start Blog Section -->
     <div class="blog-section">
-        <main class="container">
+        <main class="container-lg">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="rounded text-bg-dark position-relative">
+                <img src="{{asset('admin/assets/blog_img/')}}/{{$data->blog_img}}" alt="Image" class="img-fluid" width="100%" height="50%">
 
-            <div class="p-4 p-md-5 mb-4 rounded text-white bg-dark bg-img">
-                <div class="col-md-6 px-0">
-                    <div class="">
-
-                        <img src="{{asset('admin/assets/blog_img/')}}/{{$data->blog_img}}" alt="Image" class="img-fluid blog-img">
-                        <div class="text-overlay">
-                            <h1 class="display-4 ">{{$data->title}}</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-            <div class="row g-5">
-              <div class="col-md-8">
-          
-                <article class="blog-post border-bottom">
-                  <h2 class="blog-post-title mb-1">Another blog post</h2>
+                <article class="blog-post border-bottom mt-5">
+                  <h2 class="display-5 fw-bold blog-post-title mb-1">{{$data->title}}</h2>
                   <p class="blog-post-meta">{{$data->created_at->format('F d, Y')}} by {{$data->user->name}}</p>
-                    <div class="mb-5">
+                    <div class="mb-5 mt-5">
                         {!!$data->content!!}
                     </div>
                 </article>
@@ -115,61 +100,68 @@
                   <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
                   <a class="btn btn-outline-secondary rounded-pill disabled">Newer</a>
                 </nav>
-          
               </div>
-          
-              <div class="col-md-4">
-                <div class="position-sticky" style="top: 2rem;">
-                  <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="">About</h4>
-                    <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
-                  </div>
-          
-                  <div class="p-4">
-                    <h4 class="">Archives</h4>
-                    <ol class="list-unstyled mb-0">
-                      <li><a href="#">March 2021</a></li>
-                      <li><a href="#">February 2021</a></li>
-                      <li><a href="#">January 2021</a></li>
-                      <li><a href="#">December 2020</a></li>
-                      <li><a href="#">November 2020</a></li>
-                      <li><a href="#">October 2020</a></li>
-                      <li><a href="#">September 2020</a></li>
-                      <li><a href="#">August 2020</a></li>
-                      <li><a href="#">July 2020</a></li>
-                      <li><a href="#">June 2020</a></li>
-                      <li><a href="#">May 2020</a></li>
-                      <li><a href="#">April 2020</a></li>
-                    </ol>
-                  </div>
-          
-                  <div class="p-4">
-                    <h4 class="">Elsewhere</h4>
-                    <ol class="list-unstyled">
-                      <li><a href="#">GitHub</a></li>
-                      <li><a href="#">Twitter</a></li>
-                      <li><a href="#">Facebook</a></li>
-                    </ol>
-                  </div>
+            </div>
+            <div class="col-md-4">
+              <div class="position-sticky" style="top: 2rem;">
+                <div class="p-4 mb-3 bg-light rounded">
+                  <h4 class="">Author</h4>
+                  <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+                </div>
+        
+                <div class="p-4">
+                  <h4 class="">Archives</h4>
+                  <ol class="list-unstyled mb-0">
+                    <li><a href="#">March 2021</a></li>
+                    <li><a href="#">February 2021</a></li>
+                    <li><a href="#">January 2021</a></li>
+                    <li><a href="#">December 2020</a></li>
+                    <li><a href="#">November 2020</a></li>
+                    <li><a href="#">October 2020</a></li>
+                    <li><a href="#">September 2020</a></li>
+                    <li><a href="#">August 2020</a></li>
+                    <li><a href="#">July 2020</a></li>
+                    <li><a href="#">June 2020</a></li>
+                    <li><a href="#">May 2020</a></li>
+                    <li><a href="#">April 2020</a></li>
+                  </ol>
+                </div>
+        
+                <div class="p-4">
+                  <h4 class="">Elsewhere</h4>
+                  <ol class="list-unstyled">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                  </ol>
                 </div>
               </div>
             </div>
-            <h3 class="pb-4 mb-4 mt-5  border-bottom">
-                From the Firehose
-            </h3>
-            <div class="row mb-2 mt-5">
-                <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                    <div class="post-entry">
-                        <a href="#" class="post-thumbnail"><img src="{{asset('home/images/post-1.jpg')}}" alt="Image" class="img-fluid"></a>
-                        <div class="post-content-entry">
-                            <h3><a href="#">h3</a></h3>
-                            <div class="meta">
-                                <span>by <a href="#">a</a></span> <span>on <a href="#">a</a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  
+          </div>
+          <h3 class="pb-4 mb-4 mt-5  border-bottom">
+                Recent the Blogs
+          </h3>
+          <div class="row mb-2 mt-5">
+              @foreach ($recent as $blog)
+                
+              <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                  <div class="post-entry">
+                    @if ($blog->blog_img == null)
+                      <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('home/images/post-1.jpg')}}" alt="Image" class="img-fluid"></a>
+                    @else
+
+                      <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('admin/assets/blog_img/')}}/{{$blog->blog_img}}" alt="Image" class="img-fluid"></a>
+                    @endif
+                      <div class="post-content-entry">
+                          <h3><a href="#">{{$blog->title}}</a></h3>
+                          <div class="meta">
+                            <span>by <a href="#">{{$blog->user->name}}</a></span> <span>on <a href="#">{{$blog->created_at->format('M d, Y')}}</a></span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endforeach
+          </div>  
         </main>
     </div>
     <!-- End Blog Section -->
