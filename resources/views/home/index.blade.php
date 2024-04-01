@@ -323,7 +323,7 @@
                     <h2 class="section-title">Recent Blog</h2>
                 </div>
                 <div class="col-md-6 text-start text-md-end">
-                    <a href="#" class="more">View All Posts</a>
+                    <a href="{{route('blog')}}" class="more">View All Posts</a>
                 </div>
             </div>
 

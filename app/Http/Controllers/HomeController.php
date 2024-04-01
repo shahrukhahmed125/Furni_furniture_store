@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = Product::paginate(3);
-        $blog = Blog::paginate(3);
+        $blog = Blog::orderBy('created_at', 'desc')->paginate(3);
         return view('home.index', compact('data', 'blog'));
     }
     public function shop()
@@ -33,9 +34,27 @@ class HomeController extends Controller
     {
         $data = Blog::findOrfail($id);
         $recent = Blog::orderBy('created_at', 'desc')->paginate(3);
+        $comment = Comment::all();
 
-        return view('home.blog_detail', compact('data', 'recent'));
+        return view('home.blog_detail', compact('data', 'recent', 'comment'));
     }
+
+    public function comment_post(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'content' => 'required|string',
+            ]
+        );
+
+        $data = new Comment;
+        $data->blog_id = $id;
+        $data->fill($request->all());
+        $data->save();
+
+        return redirect()->back()->with('msg','Comment is sent successfully!');
+    }
+
     public function services()
     {
         return view('home.services');

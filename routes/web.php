@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/contact',[HomeController::class,'contact'])->name('contact');
     Route::post('/contact_post',[HomeController::class,'contact_post'])->name('contact_post');
 
+    Route::post('/comment_post',[HomeController::class,'comment_post'])->name('comment_post');
+
     Route::get('/cart',[HomeController::class,'cart'])->name('cart');
     Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
     Route::get('/thankyou',[HomeController::class,'thankyou'])->name('thankyou');
