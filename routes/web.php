@@ -33,7 +33,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('/contact',[HomeController::class,'contact'])->name('contact');
     Route::post('/contact_post',[HomeController::class,'contact_post'])->name('contact_post');
 
-    Route::post('/comment_post',[HomeController::class,'comment_post'])->name('comment_post');
+    Route::post('/comment_post/{id}',[HomeController::class,'comment_post'])->name('comment_post');
+    Route::post('/comments/{comment}/like', [HomeController::class, 'like'])->name('comments.like');
+
 
     Route::get('/cart',[HomeController::class,'cart'])->name('cart');
     Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');

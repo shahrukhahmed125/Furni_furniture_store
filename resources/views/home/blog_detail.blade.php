@@ -205,11 +205,22 @@
                                 <h3 class="pb-4 px-3 mb-4 mt-4  border-bottom">Comments</h6>
 
                             </div>
-
-                            <form action="" method="POST">
+                            @if (session()->has('msg'))
+                                <div class="border p-4 rounded" role="alert" id="alert">
+                                {{ session()->get('msg') }}
+                                </div>
+                            @endif
+                            <form action="{{url('/comment_post')}}/{{$data->id}}" method="POST">
                                 @csrf
                                 <div class="mt-3 d-flex flex-row align-items-center p-3 bg-white">
 
+                                    @if (Auth::check())
+
+                                    <img src="{{asset('admin/assets/user_img')}}/{{Auth::user()->profile_img}}" width="50" class="rounded-circle mr-2">
+                                    @else
+                                    <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="50" class="rounded-circle mr-2">
+
+                                    @endif
                                     <input type="text" class="form-control mx-3" placeholder="Enter your comment..."
                                         name="content">
                                     <button type="submit" class="btn btn-primary-hover-outline">Send</button>
@@ -225,9 +236,17 @@
                                 @foreach ($comment as $comment)
                                   
                                 <div class="d-flex flex-row p-3">
+                                    
+                                    @if ($comment->user->profile_img == null)
 
-                                    <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40"
-                                        class="rounded-circle mx-3">
+                                    <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="40" height="40"
+                                    class="rounded-circle mx-3">
+                  
+                                    @else
+                  
+                                    <img src="{{asset('admin/assets/user_img')}}/{{$comment->user->profile_img}}" width="40" height="40"
+                                    class="rounded-circle mx-3">
+                                    @endif
 
                                     <div class="w-100">
 
@@ -246,8 +265,11 @@
                                         <p class="text-justify comment-text mb-0 mx-2">{{$comment->content}}</p>
 
                                         <div class="d-flex flex-row user-feed">
-
-                                            <span class="wish"><i class="fa fa-heartbeat mx-2"></i>{{$comment->likes}}</span>
+                                            <form action="{{ route('comments.like', ['comment' => $comment]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heartbeat mx-2" style="color: #35b69f;"></i></button>{{$comment->likes}}</span>
+                                            </form>
                                             <span class="ml-3"><i class="fa fa-comments mx-2"></i>Reply</span>
 
 
@@ -307,5 +329,12 @@
 
 @section('js')
 
+<script>
+    const myTimeout = setTimeout(closeAlert, 3000);
+  
+    function closeAlert() {
+        document.getElementById("alert").style.display = 'none';
+    }
+  </script>
 
 @stop

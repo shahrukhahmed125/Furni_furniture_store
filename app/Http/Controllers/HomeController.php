@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -50,9 +51,40 @@ class HomeController extends Controller
         $data = new Comment;
         $data->blog_id = $id;
         $data->fill($request->all());
-        $data->save();
 
-        return redirect()->back()->with('msg','Comment is sent successfully!');
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+            $data->save();
+
+            return redirect()->back()->with('msg','Comment is sent successfully!');
+        }
+        else{
+            return redirect()->back()->with('msg','Login required to comment!');
+        }
+
+
+    }
+
+    public function like(Request $request, Comment $comment)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        // Check if the user has already liked the comment
+        if (!$comment->likes()->where('user_id', $request->user_id)->exists()) {
+            // Associate the like with the comment
+            $comment->likes()->create(['user_id' => $request->user_id]);
+
+            // Increment likes count for the comment
+            $comment->increment('likes');
+
+            return redirect()->back()->with('msg','Like successfully!');
+        }
+
+        return redirect()->back()->with('msg','Already liked!');
     }
 
     public function services()
