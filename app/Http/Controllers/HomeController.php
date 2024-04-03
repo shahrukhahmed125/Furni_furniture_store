@@ -67,24 +67,21 @@ class HomeController extends Controller
 
     }
 
-    public function like(Request $request, Comment $comment)
+    public function like(Request $request, $comment)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
 
-        // Check if the user has already liked the comment
-        if (!$comment->likes()->where('user_id', $request->user_id)->exists()) {
-            // Associate the like with the comment
-            $comment->likes()->create(['user_id' => $request->user_id]);
+        $data = Comment::findOrfail($comment);
+        $user = Auth::check();
+        if($user)
+        {
 
-            // Increment likes count for the comment
-            $comment->increment('likes');
-
+            $data->likes += 1;
+            $data->save();  
+    
             return redirect()->back()->with('msg','Like successfully!');
         }
 
-        return redirect()->back()->with('msg','Already liked!');
+        return redirect()->back()->with('msg','Login required!');
     }
 
     public function services()

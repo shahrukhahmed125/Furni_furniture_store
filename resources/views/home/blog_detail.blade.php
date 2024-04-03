@@ -265,9 +265,9 @@
                                         <p class="text-justify comment-text mb-0 mx-2">{{$comment->content}}</p>
 
                                         <div class="d-flex flex-row user-feed">
-                                            <form action="{{ route('comments.like', ['comment' => $comment]) }}" method="POST">
+                                            <form action="{{ route('comments.like', ['comment' => $comment->id]) }}" method="POST">
                                                 @csrf
-                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
                                                 <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heartbeat mx-2" style="color: #35b69f;"></i></button>{{$comment->likes}}</span>
                                             </form>
                                             <span class="ml-3"><i class="fa fa-comments mx-2"></i>Reply</span>

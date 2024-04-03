@@ -52,7 +52,7 @@
                             <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="{{asset('admin/assets/blog_img/')}}/{{$blog->blog_img}}" alt="Image" class="img-fluid"></a>
                         @endif
                         <div class="post-content-entry">
-                            <h3><a href="#">{{$blog->title}}</a></h3>
+                            <h3><a href="{{url('/blog_detail')}}/{{$blog->id}}">{{$blog->title}}</a></h3>
                             <div class="meta">
                                 <span>by <a href="#">{{$blog->user->name}}</a></span> <span>on <a href="#">{{$blog->created_at->format('M d, Y')}}</a></span>
                             </div>

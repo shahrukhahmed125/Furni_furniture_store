@@ -333,9 +333,9 @@
                     
                 <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                     <div class="post-entry">
-                        <a href="#" class="post-thumbnail"><img src="home/images/post-1.jpg" alt="Image" class="img-fluid"></a>
+                        <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="home/images/post-1.jpg" alt="Image" class="img-fluid"></a>
                         <div class="post-content-entry">
-                            <h3><a href="#">{{$blog->title}}</a></h3>
+                            <h3><a href="{{url('/blog_detail')}}/{{$blog->id}}">{{$blog->title}}</a></h3>
                             <div class="meta">
                                 <span>by <a href="#">{{$blog->user->name}}</a></span> <span>on <a href="#">{{$blog->created_at->format('M d, Y')}}</a></span>
                             </div>
