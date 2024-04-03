@@ -240,12 +240,12 @@
                                     @if ($comment->user->profile_img == null)
 
                                     <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="40" height="40"
-                                    class="rounded-circle mx-3">
+                                    class="rounded-circle mx-3" alt="user image">
                   
                                     @else
                   
                                     <img src="{{asset('admin/assets/user_img')}}/{{$comment->user->profile_img}}" width="40" height="40"
-                                    class="rounded-circle mx-3">
+                                    class="rounded-circle mx-3" alt="user image">
                                     @endif
 
                                     <div class="w-100">
@@ -265,14 +265,25 @@
                                         <p class="text-justify comment-text mb-0 mx-2">{{$comment->content}}</p>
 
                                         <div class="d-flex flex-row user-feed">
-                                            <form action="{{ route('comments.like', ['comment' => $comment->id]) }}" method="POST">
+                                            <form action="{{ route('comments.like', ['comment' => $comment->id]) }}" method="POST" id="addpost">
                                                 @csrf
-                                                {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
-                                                <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heartbeat mx-2" style="color: #35b69f;"></i></button>{{$comment->likes}}</span>
+                                                @if (Auth::check())
+                                                    
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                @endif
+                                                <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heart mx-2" style="color: #f02020;"></i>{{$comment->likes}}</button></span>
                                             </form>
-                                            <span class="ml-3"><i class="fa fa-comments mx-2"></i>Reply</span>
+                                            <span class="ml-3"><button onclick="reply_box()" style="background-color: #ffffff;border:none;"><i class="fa fa-comments mx-2"></i>Reply</button></span>
 
+                                            
+                                        </div>
+                                        <div class="reply-input" id="replyInput" style="display: none;">
+                                            <div class="d-flex flex-row">
 
+                                                <input type="text" class="form-control mx-3 mt-3" placeholder="Enter your reply..."
+                                                name="reply">
+                                                <button type="submit" class="btn btn-primary-hover-outline mt-3">Send</button>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -337,4 +348,39 @@
     }
   </script>
 
+<script>
+
+    function reply_box() {
+    var replyInput = document.getElementById("replyInput");
+    if (replyInput.style.display === "none") {
+      replyInput.style.display = "block";
+    } else {
+      replyInput.style.display = "none";
+    }
+  }
+</script>
+<script>
+    $(document).ready(function() {
+        // Intercept the form submission event
+        $('#addpost').submit(function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            
+            // Serialize form data
+            var formData = $(this).serialize();
+            
+            // Send AJAX request
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), // URL to which the form is submitted
+                data: formData, // Form data to be sent
+                success: function(response) {
+                    // Handle successful response
+                    console.log(response);
+                    
+                }
+            });
+        });
+    });
+</script>
 @stop

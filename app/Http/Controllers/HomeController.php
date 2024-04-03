@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Comment;
 use App\Models\Contact;
+use App\Models\Like;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class HomeController extends Controller
     {
         $data = Blog::findOrfail($id);
         $recent = Blog::orderBy('created_at', 'desc')->paginate(3);
-        $comment = Comment::all();
+        $comment = Comment::orderBy('created_at', 'desc')->get();
 
         return view('home.blog_detail', compact('data', 'recent', 'comment'));
     }
@@ -67,21 +68,35 @@ class HomeController extends Controller
 
     }
 
-    public function like(Request $request, $comment)
+    public function like(Request $request, Comment $comment)
     {
+        
+        if(Auth::check())
+        {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
 
-        $data = Comment::findOrfail($comment);
-        $user = Auth::check();
-        if($user)
+            // Check if the user has already liked the comment
+            if (!$comment->likes()->where('user_id', $request->user_id)->exists()) {
+                $like = new Like();
+                $like->user_id = $request->user_id;
+                $comment->likes()->save($like);
+        
+                // Increment likes count for the comment
+                $comment->increment('likes');
+        
+                return response()->json(['message' => 'Comment liked successfully', 'likes' => $comment->likes]);
+            }
+        
+            return response()->json(['message' => 'Already liked!']);
+        }
+        else
         {
 
-            $data->likes += 1;
-            $data->save();  
-    
-            return redirect()->back()->with('msg','Like successfully!');
+            return response()->json(['message' => 'Login required!']);
         }
 
-        return redirect()->back()->with('msg','Login required!');
     }
 
     public function services()

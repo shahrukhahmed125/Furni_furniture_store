@@ -184,6 +184,7 @@
 		<script src="{{asset('home/js/bootstrap.bundle.min.js')}}"></script>
 		<script src="{{asset('home/js/tiny-slider.js')}}"></script>
 		<script src="{{asset('home/js/custom.js')}}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         @yield('js')
 	</body>
 
