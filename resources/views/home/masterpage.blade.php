@@ -57,8 +57,14 @@
 							  {{Auth::user()->name}}
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							  <li><a class="dropdown-item" href="#">Profile</a></li>
-							  <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+								@if (Auth::user()->user_type != 3)
+									<li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a></li>
+									<li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+								@else
+									<li><a class="dropdown-item" href="#">Profile</a></li>
+									<li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+									
+								@endif
 							</ul>
 						</div>
 						@else

@@ -200,9 +200,10 @@
 
                         <div class="card bg-white p-3" style="border: none;">
 
-                            <div class="">
+                            <div class="d-flex flex-row border-bottom">
 
-                                <h3 class="pb-4 px-3 mb-4 mt-4  border-bottom">Comments</h6>
+                                <h3 class="pb-4 px-3 mb-4 mt-4">Comments</h3>
+                                <h3 class="pb-4  mb-4 mt-4">{{$comment->count()}}</h3>
 
                             </div>
                             @if (session()->has('msg'))
@@ -273,18 +274,20 @@
                                                 @endif
                                                 <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heart mx-2" style="color: #f02020;"></i>{{$comment->likes}}</button></span>
                                             </form>
-                                            <span class="ml-3"><button onclick="reply_box()" style="background-color: #ffffff;border:none;"><i class="fa fa-comments mx-2"></i>Reply</button></span>
+                                            <span class="ml-3"><button onclick="reply_box('{{ $comment->id }}')" style="background-color: #ffffff;border:none;"><i class="fa fa-comments mx-2"></i>Reply</button></span>
 
                                             
                                         </div>
-                                        <div class="reply-input" id="replyInput" style="display: none;">
-                                            <div class="d-flex flex-row">
-
-                                                <input type="text" class="form-control mx-3 mt-3" placeholder="Enter your reply..."
-                                                name="reply">
-                                                <button type="submit" class="btn btn-primary-hover-outline mt-3">Send</button>
+                                        <form action="{{ route('reply_post', ['id' => $comment->id]) }}" method="post">
+                                            @csrf
+                                            <div class="reply-input" id="replyInput{{ $comment->id }}" style="display: none;">
+                                                <div class="d-flex flex-row">
+                                                        <input type="text" class="form-control mx-3 mt-3" placeholder="Enter your reply..."
+                                                        name="reply">
+                                                        <button type="submit" class="btn btn-primary-hover-outline mt-3">Send</button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
 
                                     </div>
 
@@ -350,14 +353,14 @@
 
 <script>
 
-    function reply_box() {
-    var replyInput = document.getElementById("replyInput");
-    if (replyInput.style.display === "none") {
-      replyInput.style.display = "block";
-    } else {
-      replyInput.style.display = "none";
+function reply_box(commentId) {
+        var replyInput = document.getElementById("replyInput" + commentId);
+        if (replyInput.style.display === "none") {
+            replyInput.style.display = "block";
+        } else {
+            replyInput.style.display = "none";
+        }
     }
-  }
 </script>
 <script>
     $(document).ready(function() {

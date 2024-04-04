@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/contact_post',[HomeController::class,'contact_post'])->name('contact_post');
 
     Route::post('/comment_post/{id}',[HomeController::class,'comment_post'])->name('comment_post');
+    Route::post('/reply_post/{id}',[HomeController::class,'reply_post'])->name('reply_post');
     Route::post('/comments/{comment}/like', [HomeController::class, 'like'])->name('comments.like');
 
 

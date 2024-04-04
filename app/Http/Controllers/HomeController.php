@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Like;
 use App\Models\Product;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,6 +64,33 @@ class HomeController extends Controller
         }
         else{
             return redirect()->back()->with('msg','Login required to comment!');
+        }
+
+
+    }
+
+    public function reply_post(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'reply' => 'required|string',
+            ]
+        );
+
+        $data = new Reply;
+        $data->comment_id = $id;
+        $data->fill($request->all());
+
+        $user = Auth::id();
+        if($user)
+        {
+            $data->user_id = $user;
+            $data->save();
+
+            return redirect()->back()->with('msg','Reply is sent successfully!');
+        }
+        else{
+            return redirect()->back()->with('msg','Login required to reply!');
         }
 
 
