@@ -104,7 +104,8 @@
             color: white;
             height: 20px;
             font-size: 11px;
-            width: 92px;
+            font-weight: bold;
+            width: 50px;
             border-radius: 5px;
             display: flex;
             justify-content: center;
@@ -145,8 +146,20 @@
 
                         <article class="blog-post border-bottom  bg-white p-5 mb-3 rounded">
                             <h2 class="display-5 fw-bold blog-post-title mb-1">{{ $data->title }}</h2>
-                            <p class="blog-post-meta">{{ $data->created_at->format('F d, Y') }} by {{ $data->user->name }}
-                            </p>
+                            <div class="d-flex flex-row mt-3">
+                                @if ($data->user->profile_img == null)
+
+                                <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="40" height="40"
+                                class="rounded-circle" alt="user image">
+              
+                                @else
+              
+                                <img src="{{asset('admin/assets/user_img')}}/{{$data->user->profile_img}}" width="40" height="40"
+                                class="rounded-circle" alt="user image">
+                                @endif
+                                    <h6 class="p-2 fw-bold">{{$data->user->name}}</h6>
+                                </div>
+                                <p class="text-justify comment-text mb-0 mx-2">{{ $data->created_at->format('F d, Y') }}</p>
                             <div class="mb-5 mt-5">
                                 {!! $data->content !!}
                             </div>
@@ -236,63 +249,66 @@
                             <div class="mt-2">
                                 @foreach ($comment as $comment)
                                   
-                                <div class="d-flex flex-row p-3">
-                                    
-                                    @if ($comment->user->profile_img == null)
+                                    <div class="d-flex flex-row p-3">
+                                        
+                                        @if ($comment->user->profile_img == null)
 
-                                    <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="40" height="40"
-                                    class="rounded-circle mx-3" alt="user image">
-                  
-                                    @else
-                  
-                                    <img src="{{asset('admin/assets/user_img')}}/{{$comment->user->profile_img}}" width="40" height="40"
-                                    class="rounded-circle mx-3" alt="user image">
-                                    @endif
+                                        <img src="{{asset('admin/assets/images/faces-clipart/pic-1.png')}}" width="40" height="40"
+                                        class="rounded-circle mx-3" alt="user image">
+                    
+                                        @else
+                    
+                                        <img src="{{asset('admin/assets/user_img')}}/{{$comment->user->profile_img}}" width="40" height="40"
+                                        class="rounded-circle mx-3" alt="user image">
+                                        @endif
 
-                                    <div class="w-100">
+                                        <div class="w-100">
 
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <span class="mx-2">{{$comment->user->name}}</span>
-                                                <small class="c-badge">Top Comment</small>
-                                            </div>
-                                            @php
-                                            $timestamp = $comment->created_at;
-                                            $date = timeAgo($timestamp);
-                                            @endphp
-                                            <small>{{$date}}</small>
-                                        </div>
-
-                                        <p class="text-justify comment-text mb-0 mx-2">{{$comment->content}}</p>
-
-                                        <div class="d-flex flex-row user-feed">
-                                            <form action="{{ route('comments.like', ['comment' => $comment->id]) }}" method="POST" id="addpost">
-                                                @csrf
-                                                @if (Auth::check())
-                                                    
-                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                @endif
-                                                <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heart mx-2" style="color: #f02020;"></i>{{$comment->likes}}</button></span>
-                                            </form>
-                                            <span class="ml-3"><button onclick="reply_box('{{ $comment->id }}')" style="background-color: #ffffff;border:none;"><i class="fa fa-comments mx-2"></i>Reply</button></span>
-
-                                            
-                                        </div>
-                                        <form action="{{ route('reply_post', ['id' => $comment->id]) }}" method="post">
-                                            @csrf
-                                            <div class="reply-input" id="replyInput{{ $comment->id }}" style="display: none;">
-                                                <div class="d-flex flex-row">
-                                                        <input type="text" class="form-control mx-3 mt-3" placeholder="Enter your reply..."
-                                                        name="reply">
-                                                        <button type="submit" class="btn btn-primary-hover-outline mt-3">Send</button>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <span class="mx-2 fw-bold">{{$comment->user->name}}</span>
+                                                    @if ($comment->user->user_type != 3)
+                                                        
+                                                    <small class="c-badge">Author</small>
+                                                    @endif
                                                 </div>
+                                                @php
+                                                $timestamp = $comment->created_at;
+                                                $date = timeAgo($timestamp);
+                                                @endphp
+                                                <small>{{$date}}</small>
                                             </div>
-                                        </form>
+
+                                            <p class="text-justify comment-text mb-0 mx-2">{{$comment->content}}</p>
+
+                                            <div class="d-flex flex-row user-feed">
+                                                <form action="{{ route('comments.like', ['comment' => $comment->id]) }}" method="POST" id="addpost">
+                                                    @csrf
+                                                    @if (Auth::check())
+                                                        
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                    @endif
+                                                    <span class="wish"><button type="submit" style="background-color: #ffffff;border:none;"><i class="fa fa-heart mx-2" style="color: #f02020;"></i>{{$comment->likes}}</button></span>
+                                                </form>
+                                                <span class="ml-3"><button onclick="reply_box('{{ $comment->id }}')" style="background-color: #ffffff;border:none;"><i class="fa fa-comments mx-2"></i>Reply</button></span>
+
+                                                
+                                            </div>
+                                            <form action="{{ route('reply_post', ['id' => $comment->id]) }}" method="post">
+                                                @csrf
+                                                <div class="reply-input" id="replyInput{{ $comment->id }}" style="display: none;">
+                                                    <div class="d-flex flex-row">
+                                                            <input type="text" class="form-control mx-3 mt-3" placeholder="Enter your reply..."
+                                                            name="reply">
+                                                            <button type="submit" class="btn btn-primary-hover-outline mt-3">Send</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+
 
                                     </div>
-
-
-                                </div>
                                 @endforeach
 
                             </div>

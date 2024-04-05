@@ -333,7 +333,16 @@
                     
                 <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                     <div class="post-entry">
-                        <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail"><img src="home/images/post-1.jpg" alt="Image" class="img-fluid"></a>
+                        <a href="{{url('/blog_detail')}}/{{$blog->id}}" class="post-thumbnail">
+                            @if ($blog->blog_img == null)
+
+                            <img src="{{asset('admin/assets/blog_img/default.jpg')}}" alt="Image" class="img-fluid">
+                                
+                            @else
+
+                            <img src="{{asset('admin/assets/blog_img')}}/{{$blog->blog_img}}" alt="Image" class="img-fluid">
+                            @endif
+                        </a>
                         <div class="post-content-entry">
                             <h3><a href="{{url('/blog_detail')}}/{{$blog->id}}">{{$blog->title}}</a></h3>
                             <div class="meta">

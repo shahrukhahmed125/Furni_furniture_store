@@ -102,6 +102,8 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+          @if (Auth::user()->user_type != 4)
+            
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
               <span class="menu-icon">
@@ -126,6 +128,7 @@
               </ul>
             </div>
           </li>
+          @endif
           @if (Auth::user()->user_type != 2)
               <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
@@ -153,7 +156,7 @@
               <span class="menu-title">Tables</span>
             </a>
           </li>
-          @if (Auth::user()->user_type != 2)
+          @if (Auth::user()->user_type != 2 && Auth::user()->user_type != 4)
             
             <li class="nav-item menu-items">
               <a class="nav-link" href="{{route('roles')}}">
@@ -172,6 +175,8 @@
               <span class="menu-title">Messages</span>
             </a>
           </li>
+          @if (Auth::user()->user_type != 4)
+            
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
@@ -187,6 +192,7 @@
               </ul>
             </div>
           </li>
+          @endif
           <li class="nav-item menu-items">
             <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
               <span class="menu-icon">
