@@ -36,8 +36,9 @@ class AuthController extends Controller
                 return redirect('/AdminDashboard');
             }
         }
-
-        return redirect('/login')->withErrors('Login details not found!');
+            
+        return redirect('/login')->with('msg','Email or Password is not valid!');
+        
 
     }
 

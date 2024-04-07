@@ -20,7 +20,7 @@
                     <div class="col-lg-5">
                         <div class="intro-excerpt">
                             <h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
-                            <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+                            <p class="mb-4">"Elevating spaces, redefining comfort: where innovation meets elegance"</p>
                             <p><a href="{{route('shop')}}" class="btn btn-secondary me-2">Shop Now</a><a href="{{route('services')}}" class="btn btn-white-outline">Explore</a></p>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                 <!-- Start Column 1 -->
                 <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
                     <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
-                    <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
+                    <p class="mb-4">Crafted with impeccable materials, our designs epitomize quality and luxury, ensuring enduring beauty in every detail.</p>
                     <p><a href="{{route('shop')}}" class="btn">Explore</a></p>
                 </div> 
                 <!-- End Column 1 -->
@@ -83,7 +83,10 @@
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <h2 class="section-title">Why Choose Us</h2>
-                    <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+                    <p>Choose us for furniture that's more than mere décor,
+                        Crafted with care, each piece embodies much more.
+                        From timeless classics to trends that endure,
+                        Your space, elevated with style, that's for sure.</p>
 
                     <div class="row my-5">
                         <div class="col-6 col-md-6">
@@ -92,7 +95,7 @@
                                     <img src="home/images/truck.svg" alt="Image" class="imf-fluid">
                                 </div>
                                 <h3>Fast &amp; Free Shipping</h3>
-                                <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+                                <p>Transforming your space with swift delivery, no extra fee.</p>
                             </div>
                         </div>
 
@@ -102,7 +105,7 @@
                                     <img src="home/images/bag.svg" alt="Image" class="imf-fluid">
                                 </div>
                                 <h3>Easy to Shop</h3>
-                                <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+                                <p>Simplify your interior design journey with effortless browsing and selection.</p>
                             </div>
                         </div>
 
@@ -112,7 +115,7 @@
                                     <img src="home/images/support.svg" alt="Image" class="imf-fluid">
                                 </div>
                                 <h3>24/7 Support</h3>
-                                <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+                                <p>Round-the-clock assistance ensuring seamless solutions whenever you need.</p>
                             </div>
                         </div>
 
@@ -122,7 +125,7 @@
                                     <img src="home/images/return.svg" alt="Image" class="imf-fluid">
                                 </div>
                                 <h3>Hassle Free Returns</h3>
-                                <p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+                                <p>Experience peace of mind with hassle-free returns, because satisfaction is guaranteed.</p>
                             </div>
                         </div>
 
@@ -131,7 +134,7 @@
 
                 <div class="col-lg-5">
                     <div class="img-wrap">
-                        <img src="home/images/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+                        <img src="{{asset('home/images/why-choose-us-img.jpg')}}" alt="Image" class="img-fluid">
                     </div>
                 </div>
 
@@ -153,13 +156,16 @@
                 </div>
                 <div class="col-lg-5 ps-lg-5">
                     <h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
-                    <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                    <p>We're here to guide your vision, turning dreams into reality,
+                        With expertise and creativity, we redefine your space's vitality.
+                        From concept to completion, our support is profound and clear,
+                        Together, we craft modern interiors that inspire and endear.</p>
 
                     <ul class="list-unstyled custom-list my-4">
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
+                        <li>Empowering your design journey with expert insights and inspiration.</li>
+                        <li>Tailored solutions for every taste and space, ensuring personalized excellence.</li>
+                        <li>Streamlined processes and seamless collaboration for effortless transformations.</li>
+                        <li>From concept to execution, we're committed to exceeding your expectations.</li>
                     </ul>
                     <p><a herf="{{route('shop')}}" class="btn">Explore</a></p>
                 </div>

@@ -40,8 +40,12 @@
         <div class="block">
           <div class="row justify-content-center">
     
-    
             <div class="col-md-8 col-lg-8 pb-4">
+                @if (session()->has('msg'))
+                  <div class="border p-4 rounded mb-5 text-white bg-danger" role="alert" id="alert">
+                    <b>{{ session()->get('msg') }}</b>
+                  </div>
+                @endif
                 <div class="border p-4 rounded mb-5" role="alert">
                     Register an account <a href="{{route('register')}}">Click here.</a>
                 </div>
@@ -52,7 +56,7 @@
                   <label class="text-black" for="email">Email address</label>
                   <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" required>
                   @error('email')
-                    <p class="badge bg-danger text-white rounded-pill">{{ '* ' . $message }}</p>
+                    <p class="text-danger">{{ '* ' . $message }}</p>
                   @enderror
                 </div>
     
@@ -60,7 +64,7 @@
                   <label class="text-black" for="password">Password</label>
                   <input type="password" class="form-control" id="password" name="password" required>
                   @error('password')
-                    <p class="badge bg-danger text-white rounded-pill">{{ '* ' . $message }}</p>
+                    <p class="text-danger">{{ '* ' . $message }}</p>
                   @enderror
                 </div>
                 <button type="submit" class="btn btn-primary-hover-outline mb-5 px-5">Login</button>
@@ -88,5 +92,12 @@
 
 @section('js')
 
+<script>
+  const myTimeout = setTimeout(closeAlert, 3000);
+
+  function closeAlert() {
+      document.getElementById("alert").style.display = 'none';
+  }
+</script>
 
 @stop

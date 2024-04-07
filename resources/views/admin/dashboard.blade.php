@@ -1,5 +1,7 @@
 @extends('admin.masterpage')
-@section('title', 'Dashboard')
+@section('title')
+{{$name}}'s - Dashboard
+@stop
 @section('css')
 
 
@@ -710,4 +712,12 @@
 @section('js')
 
 
+<script>
+    // JavaScript to add the user's name to the URL
+    var userName = "{{ $name }}";
+    var currentUrl = window.location.href;
+    var separator = currentUrl.includes('?') ? '&' : '?';
+    var updatedUrl = currentUrl + separator + "user=" + encodeURIComponent(userName);
+    window.history.replaceState({}, '', updatedUrl);
+</script>
 @stop

@@ -17,7 +17,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $name  = Auth::user()->name;
+        return view('admin.dashboard',compact('name'));
     }
 
     public function change_password()
