@@ -37,9 +37,10 @@ class HomeController extends Controller
     {
         $data = Blog::findOrfail($id);
         $recent = Blog::orderBy('created_at', 'desc')->paginate(3);
-        $comment = Comment::orderBy('created_at', 'desc')->get();
+        $comment = Comment::where('blog_id', $id)->orderBy('created_at', 'desc')->get();
+        $reply = Reply::orderBy('created_at', 'desc')->paginate(3);
 
-        return view('home.blog_detail', compact('data', 'recent', 'comment'));
+        return view('home.blog_detail', compact('data', 'recent', 'comment', 'reply'));
     }
 
     public function comment_post(Request $request, $id)
@@ -60,7 +61,8 @@ class HomeController extends Controller
             $data->user_id = $user;
             $data->save();
 
-            return redirect()->back()->with('msg','Comment is sent successfully!');
+            return redirect()->back()->with('msg','Comment added successfully!');
+            // return response()->json(['success' => true, 'message' => 'Comment added successfully!']);
         }
         else{
             return redirect()->back()->with('msg','Login required to comment!');
