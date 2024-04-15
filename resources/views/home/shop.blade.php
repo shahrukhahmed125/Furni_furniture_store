@@ -38,23 +38,32 @@
                   @foreach ($data as $product)
                     
                   <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                      <a class="product-item" href="cart.html">
-                          <img src="{{ asset('admin/assets/product_img') }}/{{ $product->product_img }}" class="img-fluid product-thumbnail">
-                          <h3 class="product-title">{{$product->title}}</h3>
-                          @if ($product->discount_price == null)
-                              
-                          <strong class="product-price">{{'Rs.'.$product->price}}</strong>
-  
-                          @else
-  
-                          <strong class="product-price">{{'Rs.'.$product->discount_price}}</strong>
-  
-                          @endif
-  
-                          <span class="icon-cross">
-                              <img src="{{asset('home/images/cross.svg')}}" class="img-fluid">
-                          </span>
-                      </a>
+                      <form method="POST" action="{{route('add_to_cart', ['id' => $product->id])}}">
+                        @csrf   
+                            <div class="product-item">
+                                
+                                <input type="number" value="1" min="1" name="quantity"
+                                    class="form-control" id="input_quantity" width="100px" hidden>
+                                    <img src="{{ asset('admin/assets/product_img') }}/{{ $product->product_img }}" class="img-fluid product-thumbnail">
+                                    <h3 class="product-title">{{$product->title}}</h3>
+                                    @if ($product->discount_price == null)
+                                    
+                                    <strong class="product-price">{{'Rs.'.$product->price}}</strong>
+                                    
+                                    @else
+                                    
+                              <strong class="product-price">{{'Rs.'.$product->discount_price}}</strong>
+      
+                              @endif
+      
+                              <span class="icon-cross">
+                                <button type="submit">
+    
+                                    <img src="{{asset('home/images/cross.svg')}}" class="img-fluid">
+                                </button>
+                                </span>
+                            </div>   
+                    </form> 
                   </div> 
                   @endforeach 
                 <!-- End Column 1 -->
@@ -69,5 +78,15 @@
 
 @section('js')
 
+
+<script>
+    $(document).ready(function() {
+        // Attach click event handler to the anchor tag
+        $('#postLink').click(function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            $('#postForm').submit(); // Submit the form when the link is clicked
+        });
+    });
+    </script>
 
 @stop

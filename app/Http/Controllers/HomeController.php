@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Comment;
 use App\Models\Contact;
+use App\Models\cart;
 use App\Models\Like;
 use App\Models\Product;
 use App\Models\Reply;
@@ -154,9 +155,60 @@ class HomeController extends Controller
 
         return redirect()->back()->with('msg', 'Message sent successfully!');
     }
+
+    public function add_to_cart(Request $request, $id)
+    {
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $data = Product::findOrfail($id);
+
+            $cart = new cart;
+            $cart->user_id = $user->id;
+            $cart->name = $user->name;
+            $cart->email = $user->email;
+            $cart->phone = $user->phone;
+            $cart->address = $user->address;
+
+            $cart->product_id = $data->id;
+            $cart->product_title = $data->title;
+
+            if($data->discount_price != null)
+            {
+                $cart->price = $data->discount_price;
+            }
+            else{
+                $cart->price = $data->price;
+            }
+            $cart->product_img = $data->product_img;
+            $cart->quantity = $data->quantity;
+            $cart->save();
+
+            return redirect()->back()->with('msg','Added to cart successfully!');
+
+        }else{
+        
+            return redirect('/login');
+
+        }
+    }
+
     public function cart()
     {
-        return view('home.cart');
+        if(Auth::id())
+        {
+
+            $id = Auth::user()->id;
+            $cart = Cart::where('user_id','=',$id)->get();
+            // $total_price = $cart->price * $cart->quantity;
+            // $totalItems = Cart::where('user_id','=',$id)->sum('quantity');
+
+            return view('home.cart', compact('cart'));
+
+        }else{
+
+            return redirect('/login');
+        }
     }
     public function checkout()
     {
