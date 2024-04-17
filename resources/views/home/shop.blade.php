@@ -42,25 +42,24 @@
                         @csrf   
                             <div class="product-item">
                                 
-                                <input type="number" value="1" min="1" name="quantity"
-                                    class="form-control" id="input_quantity" width="100px" hidden>
-                                    <img src="{{ asset('admin/assets/product_img') }}/{{ $product->product_img }}" class="img-fluid product-thumbnail">
-                                    <h3 class="product-title">{{$product->title}}</h3>
-                                    @if ($product->discount_price == null)
+                                <input type="number" value="1" min="1" name="quantity" class="form-control" id="input_quantity" width="100px" hidden>
+                                <img src="{{ asset('admin/assets/product_img') }}/{{ $product->product_img }}" class="img-fluid product-thumbnail">
+                                <h3 class="product-title">{{$product->title}}</h3>
+                                @if ($product->discount_price == null)
                                     
                                     <strong class="product-price">{{'Rs.'.$product->price}}</strong>
                                     
-                                    @else
+                                @else
                                     
-                              <strong class="product-price">{{'Rs.'.$product->discount_price}}</strong>
+                                    <strong class="product-price">{{'Rs.'.$product->discount_price}}</strong>
       
-                              @endif
+                                @endif
       
-                              <span class="icon-cross">
-                                <button type="submit">
-    
-                                    <img src="{{asset('home/images/cross.svg')}}" class="img-fluid">
-                                </button>
+                                <span class="icon-cross">
+                                    <button type="submit">
+        
+                                        <img src="{{asset('home/images/cross.svg')}}" class="img-fluid">
+                                    </button>
                                 </span>
                             </div>   
                     </form> 

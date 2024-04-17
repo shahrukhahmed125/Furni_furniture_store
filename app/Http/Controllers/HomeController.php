@@ -165,23 +165,9 @@ class HomeController extends Controller
 
             $cart = new cart;
             $cart->user_id = $user->id;
-            $cart->name = $user->name;
-            $cart->email = $user->email;
-            $cart->phone = $user->phone;
-            $cart->address = $user->address;
 
             $cart->product_id = $data->id;
-            $cart->product_title = $data->title;
-
-            if($data->discount_price != null)
-            {
-                $cart->price = $data->discount_price;
-            }
-            else{
-                $cart->price = $data->price;
-            }
-            $cart->product_img = $data->product_img;
-            $cart->quantity = $data->quantity;
+            $cart->quantity = $request->quantity;
             $cart->save();
 
             return redirect()->back()->with('msg','Added to cart successfully!');
@@ -193,15 +179,35 @@ class HomeController extends Controller
         }
     }
 
+    public function remove_from_cart($id)
+    {
+        $data = cart::findOrfail($id);
+        $data->delete();
+
+        return redirect()->back()->with('msg', 'Item from cart deleted!');
+
+    }
+
+    public function clear_all()
+    {
+        if(Auth::id())
+        {
+            $id = Auth::user()->id;
+            Cart::where('user_id','=',$id)->delete();
+
+            return redirect()->back();
+        }
+    }
+
     public function cart()
     {
         if(Auth::id())
         {
 
             $id = Auth::user()->id;
-            $cart = Cart::where('user_id','=',$id)->get();
+            $cart = Cart::where('user_id','=',$id)->with(['user', 'product'])->get();
             // $total_price = $cart->price * $cart->quantity;
-            // $totalItems = Cart::where('user_id','=',$id)->sum('quantity');
+            // $totalItems = Cart::where('user_id','=',$id)->sum('price');
 
             return view('home.cart', compact('cart'));
 
@@ -210,10 +216,12 @@ class HomeController extends Controller
             return redirect('/login');
         }
     }
+
     public function checkout()
     {
         return view('home.checkout');
     }
+    
     public function thankyou()
     {
         return view('home.thankyou');

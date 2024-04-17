@@ -33,6 +33,26 @@
     
 
     <div class="untree_co-section before-footer-section">
+      @if ($cart->isEmpty())
+      
+        <div class="conatiner p-5" >
+          <div class="row">
+
+            <div class="col-md-12 p-5" style="display: flex;align-items:center;justify-content:center;">
+  
+              <div class="intro-excerpt">
+    
+                <h1> No items in the cart!</h1>
+              </div>
+            </div>
+            <div class="col-md-12 p-3" style="display: flex;align-items:center;justify-content:center;">
+              <a class="btn btn-outline-black btn-sm btn-block" href="{{route('shop')}}">Continue Shopping</a>
+            </div>
+          </div>
+        </div>
+
+      @else
+      
         <div class="container">
           <div class="row mb-5">
             <form class="col-md-12" method="post">
@@ -49,33 +69,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($cart as $cart)
+
+                      @foreach ($cart as $data)
+                        
                       
-                    
-                    <tr>
-                      <td class="product-thumbnail">
-                        <img src="{{ asset('admin/assets/product_img') }}/{{ $cart->product_img }}" alt="Image" class="img-fluid">
-                      </td>
-                      <td class="product-name">
-                        <h2 class="h5 text-black">{{$cart->product_title}}</h2>
-                      </td>
-                      <td>{{'Rs.'.$cart->price}}</td>
-                      <td>
-                        <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                          <div class="input-group-prepend">
-                            <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                          </div>
-                          <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                          </div>
-                        </div>
-    
-                      </td>
-                      <td>{{'Rs.'.$cart->price * $cart->quantity}}</td>
-                      <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                    </tr>
-                    @endforeach
+                        <tr>
+                          <td class="product-thumbnail">
+                            <img src="{{ asset('admin/assets/product_img') }}/{{$data->product->product_img}}" alt="Image" class="img-fluid">
+                          </td>
+                          <td class="product-name">
+                            <h2 class="h5 text-black">{{$data->product->title}}</h2>
+                          </td>
+                          @if ($data->product->discount_price == null)
+                          <td>{{'Rs.'.$data->product->price}}</td>
+                          @else
+                          <td>{{'Rs.'.$data->product->discount_price}}</td>
+
+                          @endif
+                          <td>
+                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                              </div>
+                              <input type="text" class="form-control text-center quantity-amount" value="{{$data->quantity}}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                              </div>
+                            </div>
+        
+                          </td>
+                          @if ($data->product->discount_price == null)
+                          
+                          <td>{{'Rs.'.$data->product->price * $data->quantity}}</td>
+                          @else
+                          
+                          <td>{{'Rs.'.$data->product->discount_price * $data->quantity}}</td>
+                          @endif
+                          <td><a href="{{route('remove_from_cart', ['id' => $data->id])}}" class="btn btn-black btn-sm">X</a></td>
+                        </tr>
+                      @endforeach
                   </tbody>
                 </table>
               </div>
@@ -86,10 +118,10 @@
             <div class="col-md-6">
               <div class="row mb-5">
                 <div class="col-md-6 mb-3 mb-md-0">
-                  <button class="btn btn-black btn-sm btn-block">Update Cart</button>
+                  <a class="btn btn-black btn-sm btn-block" href="{{route('clear_all_cart')}}">Clear Cart</a>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+                  <a class="btn btn-outline-black btn-sm btn-block" href="{{route('shop')}}">Continue Shopping</a>
                 </div>
               </div>
               <div class="row">
@@ -118,7 +150,7 @@
                       <span class="text-black">Subtotal</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black">$230.00</strong>
+                      <strong class="text-black"></strong>
                     </div>
                   </div>
                   <div class="row mb-5">
@@ -126,13 +158,13 @@
                       <span class="text-black">Total</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black">$230.00</strong>
+                      <strong class="text-black"></strong>
                     </div>
                   </div>
     
                   <div class="row">
                     <div class="col-md-12">
-                      <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                      <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='{{route('checkout')}}'" type="submit">Proceed To Checkout</button>
                     </div>
                   </div>
                 </div>
@@ -140,6 +172,8 @@
             </div>
           </div>
         </div>
+      
+      @endif
       </div>
 
 @stop
