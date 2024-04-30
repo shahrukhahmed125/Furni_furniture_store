@@ -150,7 +150,15 @@
                       <span class="text-black">Subtotal</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black"></strong>
+                      <strong class="text-black">{{'Rs.'.$totalItems}}</strong>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Delivery charges</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">{{'Rs.'.$tax}}</strong>
                     </div>
                   </div>
                   <div class="row mb-5">
@@ -158,7 +166,7 @@
                       <span class="text-black">Total</span>
                     </div>
                     <div class="col-md-6 text-right">
-                      <strong class="text-black"></strong>
+                      <strong class="text-black">{{'Rs.'.$total_price}}</strong>
                     </div>
                   </div>
     

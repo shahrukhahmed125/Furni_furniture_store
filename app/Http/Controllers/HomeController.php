@@ -66,7 +66,7 @@ class HomeController extends Controller
             // return response()->json(['success' => true, 'message' => 'Comment added successfully!']);
         }
         else{
-            return redirect()->back()->with('msg','Login required to comment!');
+            return redirect('/login')->with('msg','Login required to comment!');
         }
 
 
@@ -93,7 +93,7 @@ class HomeController extends Controller
             return redirect()->back()->with('msg','Reply is sent successfully!');
         }
         else{
-            return redirect()->back()->with('msg','Login required to reply!');
+            return redirect('/login')->with('msg','Login required to reply!');
         }
 
 
@@ -165,6 +165,15 @@ class HomeController extends Controller
 
             $cart = new cart;
             $cart->user_id = $user->id;
+            $cart->title = $data->title;
+            if($data->discount_price != null)
+            {
+
+                $cart->price = $data->discount_price;
+            }else{
+                $cart->price = $data->price;
+
+            }
 
             $cart->product_id = $data->id;
             $cart->quantity = $request->quantity;
@@ -206,14 +215,15 @@ class HomeController extends Controller
 
             $id = Auth::user()->id;
             $cart = Cart::where('user_id','=',$id)->with(['user', 'product'])->get();
-            // $total_price = $cart->price * $cart->quantity;
-            // $totalItems = Cart::where('user_id','=',$id)->sum('price');
+            $tax = 200;
+            $totalItems = $cart->sum("price");
+            $total_price = $totalItems + $tax;
 
-            return view('home.cart', compact('cart'));
+            return view('home.cart', compact('cart', 'totalItems', 'total_price', 'tax'));
 
         }else{
 
-            return redirect('/login');
+            return redirect('/login')->with('msg','Login requied to view cart items!');
         }
     }
 
