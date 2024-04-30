@@ -46,24 +46,20 @@
                   <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
                   <select id="c_country" class="form-control">
                     <option value="1">Select a country</option>    
-                    <option value="2">bangladesh</option>    
-                    <option value="3">Algeria</option>    
-                    <option value="4">Afghanistan</option>    
-                    <option value="5">Ghana</option>    
-                    <option value="6">Albania</option>    
-                    <option value="7">Bahrain</option>    
-                    <option value="8">Colombia</option>    
-                    <option value="9">Dominican Republic</option>    
+                    @foreach ($countries as $country)
+                            
+                      <option value="{{$country}}">{{$country}}</option>      
+                    @endforeach    
                   </select>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_fname" name="c_fname">
+                    <input type="text" class="form-control" id="c_fname" name="c_fname" value="{{$fname}}">
                   </div>
                   <div class="col-md-6">
                     <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_lname" name="c_lname">
+                    <input type="text" class="form-control" id="c_lname" name="c_lname" value="{{$lname}}">
                   </div>
                 </div>
 
@@ -74,20 +70,16 @@
                   </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row mb-2">
                   <div class="col-md-12">
                     <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
+                    <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address" value="{{$user->address}}">
                   </div>
-                </div>
-
-                <div class="form-group mt-3">
-                  <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
                 </div>
 
                 <div class="form-group row">
                   <div class="col-md-6">
-                    <label for="c_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
+                    <label for="c_state_country" class="text-black">State<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="c_state_country" name="c_state_country">
                   </div>
                   <div class="col-md-6">
@@ -99,11 +91,11 @@
                 <div class="form-group row mb-5">
                   <div class="col-md-6">
                     <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                    <input type="text" class="form-control" id="c_email_address" name="c_email_address" value="{{$user->email}}">
                   </div>
                   <div class="col-md-6">
                     <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
+                    <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" value="{{$user->phone}}">
                   </div>
                 </div>
 
@@ -129,15 +121,11 @@
                       <div class="form-group">
                         <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
                         <select id="c_diff_country" class="form-control">
-                          <option value="1">Select a country</option>    
-                          <option value="2">bangladesh</option>    
-                          <option value="3">Algeria</option>    
-                          <option value="4">Afghanistan</option>    
-                          <option value="5">Ghana</option>    
-                          <option value="6">Albania</option>    
-                          <option value="7">Bahrain</option>    
-                          <option value="8">Colombia</option>    
-                          <option value="9">Dominican Republic</option>    
+                          <option value="1">Select a country</option>
+                          @foreach ($countries as $country)
+                            
+                            <option value="{{$country}}">{{$country}}</option>      
+                          @endforeach    
                         </select>
                       </div>
 
@@ -234,21 +222,24 @@
                         <th>Total</th>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                          <td>$250.00</td>
-                        </tr>
-                        <tr>
-                          <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                          <td>$100.00</td>
-                        </tr>
+                        @foreach ($cart as $item)
+                            
+                          <tr>
+                            <td>{{$item->product->title}}<strong class="mx-2">x</strong> {{$item->quantity}}</td>
+                            <td>{{'Rs.'.$item->price}}</td>
+                          </tr>
+                        @endforeach
                         <tr>
                           <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                          <td class="text-black">$350.00</td>
+                          <td class="text-black">{{'Rs.'.$totalItems}}</td>
+                        </tr>
+                        <tr>
+                          <td class="text-black font-weight-bold"><strong>Delivery Charges</strong></td>
+                          <td class="text-black font-weight-bold"><strong>{{'Rs.'.$tax}}</strong></td>
                         </tr>
                         <tr>
                           <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                          <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+                          <td class="text-black font-weight-bold"><strong>{{'Rs.'.$total_price}}</strong></td>
                         </tr>
                       </tbody>
                     </table>
@@ -263,7 +254,7 @@
                       </div>
                     </div>
 
-                    <div class="border p-3 mb-3">
+                    {{-- <div class="border p-3 mb-3">
                       <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
 
                       <div class="collapse" id="collapsecheque">
@@ -271,7 +262,7 @@
                           <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
 
                     <div class="border p-3 mb-5">
                       <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>

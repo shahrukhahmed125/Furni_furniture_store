@@ -50,7 +50,16 @@
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="{{route('cart')}}"><img src="{{asset('home/images/cart.svg')}}"></a></li>
+						<li><a class="nav-link position-relative" href="{{route('cart')}}"><img src="{{asset('home/images/cart.svg')}}">
+							@if (!Request::is('cart'))
+								
+								<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+									{{cartDetails()}}
+									<span class="visually-hidden">unread messages</span>
+								</span>
+							@endif
+							</a>
+						</li>
 						@if (Auth::check())
 						<div class="dropdown">
 							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
