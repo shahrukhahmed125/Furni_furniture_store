@@ -1,4 +1,6 @@
-#Furni_furniture_store
+##Furni furniture store
+##PHP Laravel 
+
 Furni is an online furniture store created using PHP Laravel framework.
 
 Work Done:
